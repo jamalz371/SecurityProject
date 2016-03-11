@@ -1,11 +1,15 @@
 package part2;
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +28,15 @@ public class Window extends JFrame{
 		new Window();
 	}
 
+	class BrowseFiles implements ActionListener {
+	    public void actionPerformed(ActionEvent e) {
+	        JFileChooser c = new JFileChooser();
+	        // Demonstrate "Open" dialog:
+	        int rVal = c.showOpenDialog(Window.this);
+	        textChooseFile.setText(c.getSelectedFile().getAbsolutePath());
+	      }
+	    }
+	
 	private JTabbedPane tabbedPane = new JTabbedPane();
 
 	// The different tabs
@@ -41,6 +54,7 @@ public class Window extends JFrame{
 	private JTextField textPort = new JTextField("",6);
 	private JLabel labelChooseFile = new JLabel("Choose a file to send : ");
 	private JTextField textChooseFile = new JTextField("",30);
+	private JButton buttonBrowse = new JButton("Browse");
 	private JButton buttonSend = new JButton("Send");
 	
 	// Elements of the second tab
@@ -58,6 +72,10 @@ public class Window extends JFrame{
 		initFirstTab();
 		initSecondTab();
 		
+		buttonBrowse.addActionListener(new BrowseFiles());
+		
+		
+		
 		tabbedPane.add("Exchange file",firstPan);
 		tabbedPane.add("Generate and export",secondPan);
 		tabbedPane.setToolTipTextAt(0, "Send File");
@@ -72,6 +90,13 @@ public class Window extends JFrame{
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
+		
+		buttonBrowse.addActionListener(new ActionListener(){
+	        public void actionPerformed(ActionEvent arg0) {
+	          System.out.println("Bouton appuyé !");
+	          
+	        }        
+	      });
 	}
 	
 	public void initFirstTab(){
@@ -83,17 +108,19 @@ public class Window extends JFrame{
 	            addComponent(labelIP).addComponent(labelPort).addComponent(labelChooseFile).addComponent(buttonSend));
 	    hGroup.addGroup(layout.createParallelGroup().
 	            addComponent(textIP).addComponent(textPort).addComponent(textChooseFile).addComponent(buttonSend));
-	   layout.setHorizontalGroup(hGroup);
-	   GroupLayout.SequentialGroup vGroup = layout.createSequentialGroup();
-	   vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE).
+	    layout.setHorizontalGroup(hGroup);
+	    hGroup.addGroup(layout.createParallelGroup().
+	            addComponent(buttonBrowse));
+	    GroupLayout.SequentialGroup vGroup = layout.createSequentialGroup();
+	    vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE).
 	            addComponent(labelIP).addComponent(textIP));
-	   vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE).
+	    vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE).
 	            addComponent(labelPort).addComponent(textPort));
-	   vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE).
-	            addComponent(labelChooseFile).addComponent(textChooseFile));
-	   vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE).
+	    vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE).
+	            addComponent(labelChooseFile).addComponent(textChooseFile).addComponent(buttonBrowse));
+	    vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE).
 	            addComponent(buttonSend));
-	   layout.setVerticalGroup(vGroup);
+	    layout.setVerticalGroup(vGroup);
 	}
 	
 	public void initSecondTab(){
