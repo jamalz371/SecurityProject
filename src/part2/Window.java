@@ -19,9 +19,6 @@ import javax.swing.JTextField;
 
 public class Window extends JFrame{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args){
@@ -31,9 +28,10 @@ public class Window extends JFrame{
 	class BrowseFiles implements ActionListener {
 	    public void actionPerformed(ActionEvent e) {
 	        JFileChooser c = new JFileChooser();
-	        // Demonstrate "Open" dialog:
+	        // Open dialog window to browse files
 	        int rVal = c.showOpenDialog(Window.this);
 	        textChooseFile.setText(c.getSelectedFile().getAbsolutePath());
+	        System.out.println("path : " + textChooseFile.getText());
 	      }
 	    }
 	
@@ -66,27 +64,34 @@ public class Window extends JFrame{
 	
 	// Elements of the third tab
 	private JLabel labelFileSignature = new JLabel("Choose a file to calculate his signature : ");
+	private JTextField textNameSignature = new JTextField("",30);
+	private JButton butBrowseSignature = new JButton("Browse");
+	private JButton buttonCalculateSignature = new JButton("Calculate SHA-3");
+	private JLabel labelResultSignature = new JLabel("Signature SHA-3 : ");
+	private JTextField textResultSignature = new JTextField("",1024);
 	
 	public Window(){
 	
 		initFirstTab();
 		initSecondTab();
-		
+		intThirdTab();
 		buttonBrowse.addActionListener(new BrowseFiles());
 		
-		
+		//System.out.println("path : " + textChooseFile.getText());
 		
 		tabbedPane.add("Exchange file",firstPan);
 		tabbedPane.add("Generate and export",secondPan);
+		tabbedPane.add("Calculate signature SHA-3",thirdPan);
 		tabbedPane.setToolTipTextAt(0, "Send File");
 		tabbedPane.setToolTipTextAt(1, "Generate a key and export it");
+		tabbedPane.setToolTipTextAt(2, "Calculate the signature SHA-3 of your favorite files");
 		
 		this.setIconImage(new ImageIcon("C:/Users/JAMAL/Desktop/images_secure_transfer_files.jpg").getImage());
 		
 		add(tabbedPane);
 		
 		this.setTitle("Security Exchange");
-		this.setSize(400,300);
+		this.setSize(700,300);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
@@ -142,5 +147,29 @@ public class Window extends JFrame{
 	    vGroup2.addGroup(layout2.createParallelGroup(Alignment.BASELINE).
 	            addComponent(buttonGenerate));
 	    layout2.setVerticalGroup(vGroup2);
+	}
+	
+	public void intThirdTab(){
+		thirdPan.setLayout(layout3);
+		layout3.setAutoCreateGaps(true);
+		layout3.setAutoCreateContainerGaps(true);
+		GroupLayout.SequentialGroup hGroup3 = layout3.createSequentialGroup();
+		hGroup3.addGroup(layout3.createParallelGroup().
+	            addComponent(labelFileSignature).addComponent(buttonCalculateSignature).addComponent(labelResultSignature));
+	    hGroup3.addGroup(layout3.createParallelGroup().
+	            addComponent(textNameSignature).addComponent(textResultSignature));
+	    hGroup3.addGroup(layout3.createParallelGroup().
+	            addComponent(butBrowseSignature));
+	    layout3.setHorizontalGroup(hGroup3);
+	    GroupLayout.SequentialGroup vGroup3 = layout3.createSequentialGroup();
+	    vGroup3.addGroup(layout3.createParallelGroup(Alignment.BASELINE).
+	            addComponent(labelFileSignature).addComponent(textNameSignature).addComponent(butBrowseSignature));
+	    vGroup3.addGroup(layout3.createParallelGroup(Alignment.BASELINE).
+	            addComponent(buttonCalculateSignature));
+	    vGroup3.addGroup(layout3.createParallelGroup(Alignment.BASELINE));
+	    vGroup3.addGroup(layout3.createParallelGroup(Alignment.BASELINE).
+	            addComponent(labelResultSignature).addComponent(textResultSignature));
+	    vGroup3.addGroup(layout3.createParallelGroup(Alignment.BASELINE));
+	    layout3.setVerticalGroup(vGroup3);
 	}
 }
