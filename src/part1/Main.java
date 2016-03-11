@@ -11,8 +11,8 @@ public class Main {
 				
 		String plainText = "Salut tout le monde !";
 		
-		//RSA_2048_Exemple(plainText.getBytes());
-		AES_128_Exemple(plainText.getBytes());
+		RSA_2048_Exemple(plainText.getBytes());
+		//AES_128_Exemple(plainText.getBytes());
 		
 		//System.out.println(new String(SHA_3_Exemple()));
 		 
