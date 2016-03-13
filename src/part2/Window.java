@@ -3,6 +3,13 @@ package part2;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -15,6 +22,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+
+import part1.SHA_3;
 
 
 public class Window extends JFrame{
@@ -30,10 +39,83 @@ public class Window extends JFrame{
 	        JFileChooser c = new JFileChooser();
 	        // Open dialog window to browse files
 	        int rVal = c.showOpenDialog(Window.this);
-	        textChooseFile.setText(c.getSelectedFile().getAbsolutePath());
-	        System.out.println("path : " + textChooseFile.getText());
+	        if (rVal == JFileChooser.APPROVE_OPTION){
+	        	textChooseFile.setText(c.getSelectedFile().getAbsolutePath());
+	        	System.out.println("path : " + textChooseFile.getText());
 	      }
 	    }
+	}
+	
+	class BrowseFileSign implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+	        JFileChooser c2 = new JFileChooser();
+	        // Open dialog window to browse files
+	        int rVal2 = c2.showOpenDialog(Window.this);
+	        if (rVal2 == JFileChooser.APPROVE_OPTION){
+	        	textNameSignature.setText(c2.getSelectedFile().getAbsolutePath());
+	      }
+	    }
+	}
+	
+	class CalculateSign implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			String nameChoose = textNameSignature.getText();
+			byte[] finRes = readFile(nameChoose);
+			textResultSignature.setText(new String(finRes));
+			System.out.println("VOILA : " + new String(finRes));
+		}
+	}
+	
+	
+	public byte[] readFile(String nf){
+		File file = new File(nf);
+		FileInputStream fin = null;
+		try {
+			fin = new FileInputStream(file);
+			byte fileContent[] = new byte[(int)file.length()];
+			fin.read(fileContent);
+			String s = new String(fileContent);
+			System.out.println("File content: " + s);
+			byte[] res = SHA_3.digest(s.getBytes());
+			return res;
+		}
+		catch (FileNotFoundException e) {
+			System.out.println("File not found" + e);
+		}
+		catch (IOException ioe) {
+			System.out.println("Exception while reading file " + ioe);
+		}
+		finally {
+			try {
+				if (fin != null) {
+					fin.close();
+				}
+			}
+			catch (IOException ioe) {
+				System.out.println("Error while closing stream: " + ioe);
+			}
+		}
+		return null;
+	}
+		
+	
+	
+	// Fonction lecture
+	
+	/*public byte[] readFile(String nf){
+		String name = nF;
+		byte[] res = null;
+		Path path = Paths.get(name);
+		try {
+			byte[] data = Files.readAllBytes(path);
+			res = SHA_3.digest(data);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return res;
+	}*/
+	
 	
 	private JTabbedPane tabbedPane = new JTabbedPane();
 
@@ -45,6 +127,7 @@ public class Window extends JFrame{
 	GroupLayout layout = new GroupLayout(firstPan);
 	GroupLayout layout2 = new GroupLayout(secondPan);
 	GroupLayout layout3 = new GroupLayout(thirdPan);
+	
 	// Elements of the first tab
 	private JLabel labelIP= new JLabel("IP : ");
 	private JTextField textIP = new JTextField("", 15);
@@ -76,8 +159,8 @@ public class Window extends JFrame{
 		initSecondTab();
 		intThirdTab();
 		buttonBrowse.addActionListener(new BrowseFiles());
-		
-		//System.out.println("path : " + textChooseFile.getText());
+		butBrowseSignature.addActionListener(new BrowseFileSign());
+		buttonCalculateSignature.addActionListener(new CalculateSign());
 		
 		tabbedPane.add("Exchange file",firstPan);
 		tabbedPane.add("Generate and export",secondPan);
