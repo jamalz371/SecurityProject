@@ -6,7 +6,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.Key;
+
+import javax.crypto.SecretKey;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -19,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import part1.AES_128;
+import part1.RSA_2048;
 import part1.SHA_3;
 
 
@@ -27,9 +33,18 @@ public class Window extends JFrame{
 	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args){
-		new Window();
+		//new Window();
+		Window w = new Window();
+		try {
+			w.encryptFileAES_128();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
+	// POUR ENVOYER LA CLE IL FAUT ENVOYER LES BYTES DE LA CLE ET DONC FAIRE CA :
+	
+		//key.toString().getBytes()
 	class BrowseFiles implements ActionListener {
 	    public void actionPerformed(ActionEvent e) {
 	        JFileChooser c = new JFileChooser();
@@ -57,8 +72,8 @@ public class Window extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			String nameChoose = textNameSignature.getText();
 			byte[] finRes = readFile(nameChoose);
-			textResultSignature.setText(new String(finRes));
-			System.out.println("VOILA : " + new String(finRes));
+			byte[] res = SHA_3.digest(finRes);
+			textResultSignature.setText(new String(res));
 		}
 	}
 	
@@ -72,8 +87,7 @@ public class Window extends JFrame{
 			fin.read(fileContent);
 			String s = new String(fileContent);
 			System.out.println("File content: " + s);
-			byte[] res = SHA_3.digest(s.getBytes());
-			return res;
+			return s.getBytes();
 		}
 		catch (FileNotFoundException e) {
 			System.out.println("File not found" + e);
@@ -93,25 +107,47 @@ public class Window extends JFrame{
 		}
 		return null;
 	}
-		
+	
+	public void exportAES_128() throws IOException{ 
+		//String current = new java.io.File( "." ).getCanonicalPath();
+	   // System.out.println("Current dir:"+current);
+	    String pathFull = textNameFile.getText();
+		SecretKey key = AES_128.getKey();
+		FileOutputStream fos = new FileOutputStream(new File(pathFull));
+		fos.write(key.toString().getBytes());
+	}
+	
+	public void exportRSA_2048() throws IOException{ 
+		//String current = new java.io.File( "." ).getCanonicalPath();
+	   // System.out.println("Current dir:"+current);
+	    String pathFull = textNameFile.getText();
+	    Key[] keys = RSA_2048.getKeys();
+		FileOutputStream fos = new FileOutputStream(new File(pathFull));
+		System.out.println("RSA : " + keys.toString());
+		fos.write(keys.toString().getBytes());
+	}
 	
 	
-	// Fonction lecture
-	
-	/*public byte[] readFile(String nf){
-		String name = nF;
-		byte[] res = null;
-		Path path = Paths.get(name);
-		try {
-			byte[] data = Files.readAllBytes(path);
-			res = SHA_3.digest(data);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	 
+	 public void encryptFileAES_128() throws IOException{ 
+
+		//String pathFull = textNameFile.getText();
+		//byte[] in = readFile(pathFull);
+		//Boolean checkExport = false;
+		SecretKey key = AES_128.getKey();
+		System.out.println(key.toString().getBytes());
+		/*try{
+			byte[] cipher = AES_128.encrypt(key.getEncoded(),in);
+			System.out.println("Cipher text :"+ new String(cipher,"UTF-8"));
+			
+			byte[] plainText = AES_128.decrypt(key.getEncoded(),cipher);
+			System.out.println("Plain text :"+new String(plainText,"UTF-8"));
 		}
-		return res;
-	}*/
-	
+		
+		catch(Exception e){
+			e.printStackTrace();
+		}*/
+	}
 	
 	private JTabbedPane tabbedPane = new JTabbedPane();
 
@@ -175,12 +211,6 @@ public class Window extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		
-		buttonBrowse.addActionListener(new ActionListener(){
-	        public void actionPerformed(ActionEvent arg0) {
-	          System.out.println("Bouton appuyé !");
-	          
-	        }        
-	      });
 	}
 	
 	public void initFirstTab(){
