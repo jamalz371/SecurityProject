@@ -45,6 +45,7 @@ public class Window extends JFrame{
 	// POUR ENVOYER LA CLE IL FAUT ENVOYER LES BYTES DE LA CLE ET DONC FAIRE CA :
 	
 		//key.toString().getBytes()
+	
 	class BrowseFiles implements ActionListener {
 	    public void actionPerformed(ActionEvent e) {
 	        JFileChooser c = new JFileChooser();
@@ -74,6 +75,17 @@ public class Window extends JFrame{
 			byte[] finRes = readFile(nameChoose);
 			byte[] res = SHA_3.digest(finRes);
 			textResultSignature.setText(new String(res));
+		}
+	}
+	
+	class expAES implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			try {
+				exportAES_128();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 	
@@ -112,9 +124,11 @@ public class Window extends JFrame{
 		//String current = new java.io.File( "." ).getCanonicalPath();
 	   // System.out.println("Current dir:"+current);
 	    String pathFull = textNameFile.getText();
-		SecretKey key = AES_128.getKey();
-		FileOutputStream fos = new FileOutputStream(new File(pathFull));
-		fos.write(key.toString().getBytes());
+		//SecretKey key = AES_128.getKey();
+		//FileOutputStream fos = new FileOutputStream(new File(pathFull));
+	    String resultKey = AES_128.generateKeyHex();
+	    //fos.write(resultKey.getBytes());
+	    System.out.println(resultKey);
 	}
 	
 	public void exportRSA_2048() throws IOException{ 
@@ -123,8 +137,8 @@ public class Window extends JFrame{
 	    String pathFull = textNameFile.getText();
 	    Key[] keys = RSA_2048.getKeys();
 		FileOutputStream fos = new FileOutputStream(new File(pathFull));
-		System.out.println("RSA : " + keys.toString());
-		fos.write(keys.toString().getBytes());
+		//System.out.println("RSA : " + keys.toString());
+		//fos.write(keys.toString().getBytes());
 	}
 	
 	
@@ -193,6 +207,7 @@ public class Window extends JFrame{
 		buttonBrowse.addActionListener(new BrowseFiles());
 		butBrowseSignature.addActionListener(new BrowseFileSign());
 		buttonCalculateSignature.addActionListener(new CalculateSign());
+		boxAES.addActionListener(new expAES());
 		
 		tabbedPane.add("Exchange file",firstPan);
 		tabbedPane.add("Generate and export",secondPan);

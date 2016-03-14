@@ -98,4 +98,21 @@ public class AES_128 {
 		
 		return res;
     }
+	
+	private static String bytesToHexRepresentation(byte[] bytes) {
+	    StringBuilder sb = new StringBuilder();
+	    for (byte b : bytes) {
+	        sb.append(String.format("%02X ", b));
+	    }
+	    return sb.toString();
+	}
+	
+	public static String generateKeyHex(){
+		SecretKey myKey = AES_128.getKey();
+		byte[] encodedBytes = myKey.getEncoded();
+		String s = bytesToHexRepresentation(encodedBytes);
+		return s;
+	}
+	
+	
 }

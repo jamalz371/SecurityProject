@@ -1,7 +1,6 @@
 package part1;
 
 import java.security.Key;
-
 import javax.crypto.SecretKey;
 
 public class Main {
@@ -9,13 +8,17 @@ public class Main {
 	
 	public static void main(String[] args) {
 				
-		String plainText = "Salut tout le monde !";
+		//String plainText = "Salut tout le monde !";
 		
-		RSA_2048_Exemple(plainText.getBytes());
+		//RSA_2048_Exemple(plainText.getBytes());
 		//AES_128_Exemple(plainText.getBytes());
 		
 		//System.out.println(new String(SHA_3_Exemple()));
-		 
+		
+		
+		String b = AES_128.generateKeyHex();
+		System.out.println(b);
+		
 			
 	}
 	
@@ -60,5 +63,8 @@ public class Main {
 		String msg = "Il va pleuvoir demain";
 		return SHA_3.digest(msg.getBytes());
 	}
+	
+
+	
 
 }
