@@ -80,12 +80,36 @@ public class Window extends JFrame{
 	
 	class expAES implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			try {
-				exportAES_128();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			boxAESCheck = ! boxAESCheck;
+			
+		}
+	}
+	
+	class expRSA implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			boxRSACheck = ! boxRSACheck;
+		}
+	}
+	
+	class GenerateFile implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			if(boxAESCheck){
+				try {
+					exportAES_128();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
+			else if(boxRSACheck){
+				try {
+					exportRSA_2048();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+				
 		}
 	}
 	
@@ -129,16 +153,18 @@ public class Window extends JFrame{
 	    String resultKey = AES_128.generateKeyHex();
 	    //fos.write(resultKey.getBytes());
 	    System.out.println(resultKey);
+	    System.out.println("box AES : " + boxAESCheck);
 	}
 	
 	public void exportRSA_2048() throws IOException{ 
 		//String current = new java.io.File( "." ).getCanonicalPath();
 	   // System.out.println("Current dir:"+current);
-	    String pathFull = textNameFile.getText();
-	    Key[] keys = RSA_2048.getKeys();
-		FileOutputStream fos = new FileOutputStream(new File(pathFull));
+	    /*String pathFull = textNameFile.getText();
+	    Key[] keys = RSA_2048.getKeys();*/
+		//FileOutputStream fos = new FileOutputStream(new File(pathFull));
 		//System.out.println("RSA : " + keys.toString());
 		//fos.write(keys.toString().getBytes());
+		System.out.println("box RSA : " + boxRSACheck);
 	}
 	
 	
@@ -198,6 +224,8 @@ public class Window extends JFrame{
 	private JButton buttonCalculateSignature = new JButton("Calculate SHA-3");
 	private JLabel labelResultSignature = new JLabel("Signature SHA-3 : ");
 	private JTextField textResultSignature = new JTextField("",1024);
+	private boolean boxAESCheck = false; 
+	private boolean boxRSACheck = false;
 	
 	public Window(){
 	
@@ -208,6 +236,8 @@ public class Window extends JFrame{
 		butBrowseSignature.addActionListener(new BrowseFileSign());
 		buttonCalculateSignature.addActionListener(new CalculateSign());
 		boxAES.addActionListener(new expAES());
+		boxRSA.addActionListener(new expRSA());
+		buttonGenerate.addActionListener(new GenerateFile());
 		
 		tabbedPane.add("Exchange file",firstPan);
 		tabbedPane.add("Generate and export",secondPan);

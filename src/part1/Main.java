@@ -16,10 +16,24 @@ public class Main {
 		//System.out.println(new String(SHA_3_Exemple()));
 		
 		
+		//SecretKey a = AES_128.getKey();
+		//System.out.println(a.toString());
+		
 		String b = AES_128.generateKeyHex();
 		System.out.println(b);
-		
+		byte[] d = hexStringToByteArray(b);
+		System.out.println(d);
 			
+	}
+	
+	public static byte[] hexStringToByteArray(String s) {
+	    int len = s.length();
+	    byte[] data = new byte[len / 2];
+	    for (int i = 0; i < len; i += 2) {
+	        data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+	                             + Character.digit(s.charAt(i+1), 16));
+	    }
+	    return data;
 	}
 	
 	
