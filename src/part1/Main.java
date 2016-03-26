@@ -9,9 +9,9 @@ public class Main {
 	
 	public static void main(String[] args) {
 				
-		//String plainText = "Salut tout le monde !";
+		String plainText = "Salut tout le monde !";
 		
-		//RSA_2048_Exemple(plainText.getBytes());
+		RSA_2048_Exemple(plainText.getBytes());
 		//AES_128_Exemple(plainText.getBytes());
 		
 		//System.out.println(new String(SHA_3_Exemple()));
@@ -28,7 +28,8 @@ public class Main {
 		Key k[] = RSA_2048.getKeys();
 		System.out.println(k[0]);
 		System.out.println(RSA_2048.bytesToHexRepresentation(k[1].getEncoded()));
-		
+		System.out.println("ggggggggg : " + k[0].toString());
+		System.out.println("hhhhhhhhhhhhhhhh : " + RSA_2048.bytesToHexRepresentation(k[1].getEncoded()));
 		//String e[] = RSA_2048.generateKeyHex();
 		//System.out.println("ICI : " + e);
 			

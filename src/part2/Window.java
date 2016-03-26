@@ -78,7 +78,6 @@ public class Window extends JFrame{
 	class expAES implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			boxAESCheck = ! boxAESCheck;
-			
 		}
 	}
 	
@@ -148,9 +147,9 @@ public class Window extends JFrame{
 	    String emplacement = "C:\\Users\\JAMAL\\Desktop\\" + pathFull;
 		FileOutputStream fos = new FileOutputStream(new File(emplacement));
 	    String resultKey = AES_128.generateKeyHex();
+	    fos.write("Key in Hexadecimal format : \n".getBytes());
 	    fos.write(resultKey.getBytes());
-	    //System.out.println(resultKey);
-	    //System.out.println("box AES : " + boxAESCheck);
+	    fos.close();
 	}
 	
 	public void exportRSA_2048() throws IOException{ 
@@ -160,13 +159,18 @@ public class Window extends JFrame{
 	    String emplacement = "C:\\Users\\JAMAL\\Desktop\\" + pathFull;
 		FileOutputStream fos = new FileOutputStream(new File(emplacement));
 		Key k[] = RSA_2048.getKeys();
-		fos.write(RSA_2048.bytesToHexRepresentation(k[0].getEncoded().toString().getBytes()).getBytes());
+		fos.write(k[0].toString().getBytes());
+		fos.write("\n".getBytes());
+		fos.write("-----------------------------------------------------".getBytes());
+		fos.write("\n".getBytes());
+		fos.write("Public key in Hexadecimal format : \n".getBytes());
+		fos.write(RSA_2048.bytesToHexRepresentation(k[0].getEncoded()).getBytes());
 	    fos.write("\n".getBytes());
-	    fos.write(RSA_2048.bytesToHexRepresentation(k[1].getEncoded().toString().getBytes()).getBytes());
-		//System.out.println("box RSA : " + boxRSACheck);
-	    fos.write("hahahahahaha".getBytes());
+	    fos.write("-----------------------------------------------------".getBytes());
 	    fos.write("\n".getBytes());
-	    fos.write("voila".getBytes());
+		fos.write("Private key in Hexadecimal format : \n".getBytes());
+	    fos.write(RSA_2048.bytesToHexRepresentation(k[1].getEncoded()).getBytes());
+	    fos.close();
 	}
 	
 	
