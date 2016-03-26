@@ -11,7 +11,7 @@ public class Main {
 				
 		String plainText = "Salut tout le monde !";
 		
-		RSA_2048_Exemple(plainText.getBytes());
+		//RSA_2048_Exemple(plainText.getBytes());
 		//AES_128_Exemple(plainText.getBytes());
 		
 		//System.out.println(new String(SHA_3_Exemple()));
@@ -21,18 +21,15 @@ public class Main {
 		//System.out.println(a.toString());
 		
 		String b = AES_128.generateKeyHex();
-		System.out.println(b);
+		System.out.println("clé AES en hex : " + b);
 		byte[] d = hexStringToByteArray(b);
-		System.out.println(d);
+		System.out.println("clé AES en bytes : " + d);
 		
 		Key k[] = RSA_2048.getKeys();
-		System.out.println(k[0]);
-		System.out.println(RSA_2048.bytesToHexRepresentation(k[1].getEncoded()));
-		System.out.println("ggggggggg : " + k[0].toString());
-		System.out.println("hhhhhhhhhhhhhhhh : " + RSA_2048.bytesToHexRepresentation(k[1].getEncoded()));
-		//String e[] = RSA_2048.generateKeyHex();
-		//System.out.println("ICI : " + e);
-			
+		//System.out.println(k[0]); // clé publique en texte (ceci marche aussi)
+		System.out.println("clé RSA publique en texte : " + k[0].toString());
+		System.out.println("clé RSA publique en hex : " + RSA_2048.bytesToHexRepresentation(k[0].getEncoded()));
+		System.out.println("clé RSA privée en hex : " + RSA_2048.bytesToHexRepresentation(k[1].getEncoded()));	
 	}
 	
 	public static byte[] hexStringToByteArray(String s) {
