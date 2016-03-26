@@ -148,12 +148,12 @@ public class Window extends JFrame{
 		//String current = new java.io.File( "." ).getCanonicalPath();
 	   // System.out.println("Current dir:"+current);
 	    String pathFull = textNameFile.getText();
-		//SecretKey key = AES_128.getKey();
-		//FileOutputStream fos = new FileOutputStream(new File(pathFull));
+	    String emplacement = "C:\\Users\\JAMAL\\Desktop\\" + pathFull;
+		FileOutputStream fos = new FileOutputStream(new File(emplacement));
 	    String resultKey = AES_128.generateKeyHex();
-	    //fos.write(resultKey.getBytes());
-	    System.out.println(resultKey);
-	    System.out.println("box AES : " + boxAESCheck);
+	    fos.write(resultKey.getBytes());
+	    //System.out.println(resultKey);
+	    //System.out.println("box AES : " + boxAESCheck);
 	}
 	
 	public void exportRSA_2048() throws IOException{ 
