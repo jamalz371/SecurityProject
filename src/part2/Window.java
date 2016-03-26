@@ -42,9 +42,6 @@ public class Window extends JFrame{
 			e.printStackTrace();
 		}
 	}
-	// POUR ENVOYER LA CLE IL FAUT ENVOYER LES BYTES DE LA CLE ET DONC FAIRE CA :
-	
-		//key.toString().getBytes()
 	
 	class BrowseFiles implements ActionListener {
 	    public void actionPerformed(ActionEvent e) {
@@ -159,12 +156,17 @@ public class Window extends JFrame{
 	public void exportRSA_2048() throws IOException{ 
 		//String current = new java.io.File( "." ).getCanonicalPath();
 	   // System.out.println("Current dir:"+current);
-	    /*String pathFull = textNameFile.getText();
-	    Key[] keys = RSA_2048.getKeys();*/
-		//FileOutputStream fos = new FileOutputStream(new File(pathFull));
-		//System.out.println("RSA : " + keys.toString());
-		//fos.write(keys.toString().getBytes());
-		System.out.println("box RSA : " + boxRSACheck);
+		String pathFull = textNameFile.getText();
+	    String emplacement = "C:\\Users\\JAMAL\\Desktop\\" + pathFull;
+		FileOutputStream fos = new FileOutputStream(new File(emplacement));
+		Key k[] = RSA_2048.getKeys();
+		fos.write(RSA_2048.bytesToHexRepresentation(k[0].getEncoded().toString().getBytes()).getBytes());
+	    fos.write("\n".getBytes());
+	    fos.write(RSA_2048.bytesToHexRepresentation(k[1].getEncoded().toString().getBytes()).getBytes());
+		//System.out.println("box RSA : " + boxRSACheck);
+	    fos.write("hahahahahaha".getBytes());
+	    fos.write("\n".getBytes());
+	    fos.write("voila".getBytes());
 	}
 	
 	

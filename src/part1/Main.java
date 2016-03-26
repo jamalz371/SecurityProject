@@ -1,6 +1,7 @@
 package part1;
 
 import java.security.Key;
+
 import javax.crypto.SecretKey;
 
 public class Main {
@@ -23,6 +24,13 @@ public class Main {
 		System.out.println(b);
 		byte[] d = hexStringToByteArray(b);
 		System.out.println(d);
+		
+		Key k[] = RSA_2048.getKeys();
+		System.out.println(k[0]);
+		System.out.println(RSA_2048.bytesToHexRepresentation(k[1].getEncoded()));
+		
+		//String e[] = RSA_2048.generateKeyHex();
+		//System.out.println("ICI : " + e);
 			
 	}
 	

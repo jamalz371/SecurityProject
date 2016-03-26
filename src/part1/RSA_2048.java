@@ -10,6 +10,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
 
 /**
  * 
@@ -155,5 +156,23 @@ public class RSA_2048 {
 		
 		return res;
 		
+	}
+	
+	public static String bytesToHexRepresentation(byte[] bytes) {
+	    StringBuilder sb = new StringBuilder();
+	    for (byte b : bytes) {
+	        sb.append(String.format("%02X ", b));
+	    }
+	    return sb.toString();
+	}
+	
+	public static String[] generateKeyHex(){
+		Key mykey[] = new Key[2];
+		mykey = RSA_2048.getKeys();
+		String s[] = null;
+		s[0] = bytesToHexRepresentation(mykey[0].getEncoded());
+		byte[] encodedBytes2 = mykey[1].getEncoded();
+		s[1] = bytesToHexRepresentation(encodedBytes2);
+		return s;
 	}
 }
