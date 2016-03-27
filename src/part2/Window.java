@@ -33,14 +33,14 @@ public class Window extends JFrame{
 	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args){
-		//new Window();
-		Window w = new Window();
+		new Window();
+		/*Window w = new Window();
 		try {
 			w.encryptFileAES_128();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	class BrowseFiles implements ActionListener {
@@ -203,10 +203,12 @@ public class Window extends JFrame{
 	private JPanel firstPan = new JPanel();
 	private JPanel secondPan = new JPanel();
 	private JPanel thirdPan = new JPanel();
+	private JPanel fourthPan = new JPanel();
 	
 	GroupLayout layout = new GroupLayout(firstPan);
 	GroupLayout layout2 = new GroupLayout(secondPan);
 	GroupLayout layout3 = new GroupLayout(thirdPan);
+	GroupLayout layout4 = new GroupLayout(fourthPan);
 	
 	// Elements of the first tab
 	private JLabel labelIP= new JLabel("IP : ");
@@ -235,6 +237,13 @@ public class Window extends JFrame{
 	private boolean boxAESCheck = false; 
 	private boolean boxRSACheck = false;
 	
+	//Elements of the fourth tab
+	private JLabel labelChNa = new JLabel("Choose a name for the file to encrypt/decrypt : ");
+	private JCheckBox endeBoxRSA = new JCheckBox("RSA-2048");
+	private JCheckBox endeBoxAES = new JCheckBox("AES-128");
+	private JButton encryptButton = new JButton("Encrypt");
+	private JButton decryptButton = new JButton("Decrypt");
+	
 	public Window(){
 	
 		initFirstTab();
@@ -250,9 +259,11 @@ public class Window extends JFrame{
 		tabbedPane.add("Exchange file",firstPan);
 		tabbedPane.add("Generate and export",secondPan);
 		tabbedPane.add("Calculate signature SHA-3",thirdPan);
-		tabbedPane.setToolTipTextAt(0, "Exchange your favorite files");
-		tabbedPane.setToolTipTextAt(1, "Generate a key and export it");
-		tabbedPane.setToolTipTextAt(2, "Calculate the signature SHA-3 of your favorite files");
+		tabbedPane.add("Encrypt and decrypt files",fourthPan);
+		tabbedPane.setToolTipTextAt(0,"Exchange your favorite files");
+		tabbedPane.setToolTipTextAt(1,"Generate a key and export it");
+		tabbedPane.setToolTipTextAt(2,"Calculate the signature SHA-3 of your favorite files");
+		tabbedPane.setToolTipTextAt(3,"Encrypt and decrypt your favorite files");
 		
 		this.setIconImage(new ImageIcon("C:/Users/JAMAL/Desktop/images_secure_transfer_files.jpg").getImage());
 		
@@ -333,5 +344,9 @@ public class Window extends JFrame{
 	            addComponent(labelResultSignature).addComponent(textResultSignature));
 	    vGroup3.addGroup(layout3.createParallelGroup(Alignment.BASELINE));
 	    layout3.setVerticalGroup(vGroup3);
+	}
+	
+	public void initFourthTab(){
+		
 	}
 }
