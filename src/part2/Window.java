@@ -155,6 +155,9 @@ public class Window extends JFrame{
 	public void exportRSA_2048() throws IOException{ 
 		//String current = new java.io.File( "." ).getCanonicalPath();
 	   // System.out.println("Current dir:"+current);
+		//File filer = new File("");
+		//String path = filer.getAbsolutePath();
+		//String sep = a.separator;
 		String pathFull = textNameFile.getText();
 	    String emplacement = "C:\\Users\\JAMAL\\Desktop\\" + pathFull;
 		FileOutputStream fos = new FileOutputStream(new File(emplacement));

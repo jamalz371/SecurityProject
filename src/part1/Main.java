@@ -19,7 +19,10 @@ public class Main {
 		
 		//SecretKey a = AES_128.getKey();
 		//System.out.println(a.toString());
-		
+		//String sep = System.getProperty("line.separator"); // pour insérer une nouvelle ligne
+		//String extension = name; // "name" est le nom d'un fichier file
+		//extension = extension.substring(extension.length()-4, extension.length());
+		//System.out.println("Le separateur : " + sep);
 		String b = AES_128.generateKeyHex();
 		System.out.println("clé AES en hex : " + b);
 		byte[] d = hexStringToByteArray(b);
