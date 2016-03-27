@@ -147,7 +147,7 @@ public class Window extends JFrame{
 	    String emplacement = "C:\\Users\\JAMAL\\Desktop\\" + pathFull;
 		FileOutputStream fos = new FileOutputStream(new File(emplacement));
 	    String resultKey = AES_128.generateKeyHex();
-	    fos.write("Key in Hexadecimal format : \n".getBytes());
+	    fos.write("Key AES-128 in Hexadecimal format : \r\n".getBytes());
 	    fos.write(resultKey.getBytes());
 	    fos.close();
 	}
@@ -160,15 +160,15 @@ public class Window extends JFrame{
 		FileOutputStream fos = new FileOutputStream(new File(emplacement));
 		Key k[] = RSA_2048.getKeys();
 		fos.write(k[0].toString().getBytes());
-		fos.write("\n".getBytes());
+		fos.write("\r\n".getBytes());
 		fos.write("-----------------------------------------------------".getBytes());
-		fos.write("\n".getBytes());
-		fos.write("Public key in Hexadecimal format : \n".getBytes());
+		fos.write("\r\n".getBytes());
+		fos.write("Public key RSA-2048 in Hexadecimal format : \r\n".getBytes());
 		fos.write(RSA_2048.bytesToHexRepresentation(k[0].getEncoded()).getBytes());
-	    fos.write("\n".getBytes());
+	    fos.write("\r\n".getBytes());
 	    fos.write("-----------------------------------------------------".getBytes());
-	    fos.write("\n".getBytes());
-		fos.write("Private key in Hexadecimal format : \n".getBytes());
+	    fos.write("\r\n".getBytes());
+		fos.write("Private key RSA-2048 in Hexadecimal format : \r\n".getBytes());
 	    fos.write(RSA_2048.bytesToHexRepresentation(k[1].getEncoded()).getBytes());
 	    fos.close();
 	}
