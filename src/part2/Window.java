@@ -181,7 +181,6 @@ public class Window extends JFrame{
 		//byte[] in = readFile(pathFull);
 		//Boolean checkExport = false;
 		SecretKey key = AES_128.getKey();
-		System.out.println(key.toString().getBytes());
 		/*try{
 			byte[] cipher = AES_128.encrypt(key.getEncoded(),in);
 			System.out.println("Cipher text :"+ new String(cipher,"UTF-8"));
@@ -248,7 +247,7 @@ public class Window extends JFrame{
 		tabbedPane.add("Exchange file",firstPan);
 		tabbedPane.add("Generate and export",secondPan);
 		tabbedPane.add("Calculate signature SHA-3",thirdPan);
-		tabbedPane.setToolTipTextAt(0, "Send File");
+		tabbedPane.setToolTipTextAt(0, "Exchange your favorite files");
 		tabbedPane.setToolTipTextAt(1, "Generate a key and export it");
 		tabbedPane.setToolTipTextAt(2, "Calculate the signature SHA-3 of your favorite files");
 		
