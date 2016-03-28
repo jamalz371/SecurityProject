@@ -242,7 +242,7 @@ public class Window extends JFrame{
 	private JButton buttonGenerate = new JButton("Generate");
 	
 	// Elements of the third tab
-	private JLabel labelFileSignature = new JLabel("Choose a file to calculate his signature : ");
+	private JLabel labelFileSignature = new JLabel("Choose a file to calculate its signature : ");
 	private JTextField textNameSignature = new JTextField("",30);
 	private JButton butBrowseSignature = new JButton("Browse");
 	private JButton buttonCalculateSignature = new JButton("Calculate SHA-3");

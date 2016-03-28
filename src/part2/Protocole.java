@@ -11,8 +11,8 @@ public class Protocole {
 		System.out.println(p.step1());
 	}
 	
-	private String Alice = "ALICE";
-	private String Bob = "BOB";
+	//private String Alice = "ALICE";
+	//private String Bob = "BOB";
 	private boolean publicKeySent = false;
 	
 	public boolean sendKeyPublic(){
@@ -23,11 +23,11 @@ public class Protocole {
 	
 	public boolean step1(){
 		boolean check = false;
-		String res = Alice + Bob;
+		//String res = Alice + Bob;
 		SecretKey key = AES_128.getKey();
 
-		byte[] toSend = res.getBytes();
-		System.out.println(toSend.toString());
+		//byte[] toSend = res.getBytes();
+		//System.out.println(toSend.toString());
 		return check;
 	}
 	
