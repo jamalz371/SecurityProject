@@ -140,9 +140,29 @@ public class Window extends JFrame{
 		return null;
 	}
 	
+	public static void writeFile(byte[] contentToWrite,String path){
+		byte[] content = contentToWrite;
+		String pathNameFile = path;
+		try {
+			FileOutputStream fos = new FileOutputStream(new File(pathNameFile));
+			try {
+				fos.write(content);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void exportAES_128() throws IOException{ 
 		//String current = new java.io.File( "." ).getCanonicalPath();
 	   // System.out.println("Current dir:"+current);
+		//File filer = new File("");
+		//String path = filer.getAbsolutePath();
+		//String sep = a.separator;
 	    String pathFull = textNameFile.getText();
 	    String emplacement = "C:\\Users\\JAMAL\\Desktop\\" + pathFull;
 		FileOutputStream fos = new FileOutputStream(new File(emplacement));
@@ -178,24 +198,18 @@ public class Window extends JFrame{
 	
 	
 	 
-	 public void encryptFileAES_128() throws IOException{ 
-
-		//String pathFull = textNameFile.getText();
-		//byte[] in = readFile(pathFull);
-		//Boolean checkExport = false;
-		SecretKey key = AES_128.getKey();
-		/*try{
-			byte[] cipher = AES_128.encrypt(key.getEncoded(),in);
-			System.out.println("Cipher text :"+ new String(cipher,"UTF-8"));
-			
-			byte[] plainText = AES_128.decrypt(key.getEncoded(),cipher);
-			System.out.println("Plain text :"+new String(plainText,"UTF-8"));
-		}
-		
-		catch(Exception e){
-			e.printStackTrace();
-		}*/
+	 public byte[] encryptFileAES_128(byte[] keyToUse, String pathToFile) throws IOException{ 
+		 String myPath = pathToFile;
+		//SecretKey keyK = AES_128.getKey();
+		byte[] contentFile = readFile(myPath);
+		byte[] encryptedContent = AES_128.encrypt(keyToUse,contentFile);
+		return encryptedContent;
 	}
+	 
+	 /*public byte[] decryptFileAES_128(String pathToFile) throws IOException{
+		String myPath = pathToFile;
+		
+	 }*/
 	
 	private JTabbedPane tabbedPane = new JTabbedPane();
 

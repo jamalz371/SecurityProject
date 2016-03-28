@@ -10,17 +10,21 @@ import java.net.Socket;
 
 public class Server {
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = null;
+        
+    }
+    
+    private Socket socket = null;
+    private InputStream in = null;
+    private OutputStream out = null;
+    
+    public Server() throws IOException{
+    	ServerSocket serverSocket = null;
 
         try {
             serverSocket = new ServerSocket(4444);
         } catch (IOException ex) {
             System.out.println("Can't setup server on this port number. ");
         }
-
-        Socket socket = null;
-        InputStream in = null;
-        OutputStream out = null;
 
         try {
             socket = serverSocket.accept();

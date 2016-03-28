@@ -9,8 +9,14 @@ import java.net.Socket;
 
 public class Client {
     public static void main(String[] args) throws IOException {
-        Socket socket = null;
-        String host = "127.0.0.1";
+        new Client();
+    }
+    
+    private Socket socket = null;
+    private String host = "127.0.0.1";    
+    
+    public Client() throws IOException {
+
 
         socket = new Socket(host, 4444);
 
@@ -30,4 +36,5 @@ public class Client {
         in.close();
         socket.close();
     }
+    
 }

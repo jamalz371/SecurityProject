@@ -4,6 +4,8 @@ import java.security.Key;
 
 import javax.crypto.SecretKey;
 
+import part2.Window;
+
 public class Main {
 	
 	
@@ -32,7 +34,8 @@ public class Main {
 		//System.out.println(k[0]); // clé publique en texte (ceci marche aussi)
 		System.out.println("clé RSA publique en texte : " + k[0].toString());
 		System.out.println("clé RSA publique en hex : " + RSA_2048.bytesToHexRepresentation(k[0].getEncoded()));
-		System.out.println("clé RSA privée en hex : " + RSA_2048.bytesToHexRepresentation(k[1].getEncoded()));	
+		System.out.println("clé RSA privée en hex : " + RSA_2048.bytesToHexRepresentation(k[1].getEncoded()));
+		Window.writeFile("hahahahaha".getBytes(), "C:\\Users\\JAMAL\\Desktop\\hahahahaha.txt");
 	}
 	
 	public static byte[] hexStringToByteArray(String s) {
