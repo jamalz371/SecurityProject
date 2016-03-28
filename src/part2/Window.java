@@ -238,11 +238,19 @@ public class Window extends JFrame{
 	private boolean boxRSACheck = false;
 	
 	//Elements of the fourth tab
-	private JLabel labelChNa = new JLabel("Choose a name for the file to encrypt/decrypt : ");
-	private JCheckBox endeBoxRSA = new JCheckBox("RSA-2048");
-	private JCheckBox endeBoxAES = new JCheckBox("AES-128");
+	private JLabel labelEnc = new JLabel("Choose the file to encrypt : ");
+	private JTextField textEnc = new JTextField("",30);
+	private JButton browseEnc = new JButton("Browse");
+	private JCheckBox encBoxRSA = new JCheckBox("RSA-2048");
+	private JCheckBox encBoxAES = new JCheckBox("AES-128");
 	private JButton encryptButton = new JButton("Encrypt");
+	private JLabel labelDec = new JLabel("Choose the file to decrypt : ");
+	private JTextField textDec = new JTextField("",30);
+	private JButton browseDec = new JButton("Browse");
+	private JCheckBox decBoxRSA = new JCheckBox("RSA-2048");
+	private JCheckBox decBoxAES = new JCheckBox("AES-128");
 	private JButton decryptButton = new JButton("Decrypt");
+	
 	
 	public Window(){
 	
