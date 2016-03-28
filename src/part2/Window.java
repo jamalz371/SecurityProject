@@ -257,6 +257,8 @@ public class Window extends JFrame{
 		initFirstTab();
 		initSecondTab();
 		intThirdTab();
+		initFourthTab();
+		
 		buttonBrowse.addActionListener(new BrowseFiles());
 		butBrowseSignature.addActionListener(new BrowseFileSign());
 		buttonCalculateSignature.addActionListener(new CalculateSign());
@@ -355,6 +357,35 @@ public class Window extends JFrame{
 	}
 	
 	public void initFourthTab(){
-		
+		fourthPan.setLayout(layout4);
+		layout4.setAutoCreateGaps(true);
+		layout4.setAutoCreateContainerGaps(true);
+		GroupLayout.SequentialGroup hGroup4 = layout4.createSequentialGroup();
+		hGroup4.addGroup(layout4.createParallelGroup().
+	            addComponent(labelEnc).addComponent(encBoxAES).addComponent(encryptButton).addComponent(labelDec).addComponent(decBoxAES).addComponent(decryptButton));
+	    hGroup4.addGroup(layout4.createParallelGroup().
+	            addComponent(textEnc).addComponent(encBoxRSA).addComponent(textDec).addComponent(decBoxRSA));
+	    hGroup4.addGroup(layout4.createParallelGroup().
+	            addComponent(browseEnc).addComponent(browseDec));
+	    layout4.setHorizontalGroup(hGroup4);
+	    GroupLayout.SequentialGroup vGroup4 = layout4.createSequentialGroup();
+	    vGroup4.addGroup(layout4.createParallelGroup(Alignment.BASELINE).
+	            addComponent(labelEnc).addComponent(textEnc).addComponent(browseEnc));
+	    vGroup4.addGroup(layout4.createParallelGroup(Alignment.BASELINE).
+	            addComponent(encBoxAES).addComponent(encBoxRSA));
+	    vGroup4.addGroup(layout4.createParallelGroup(Alignment.BASELINE));
+	    vGroup4.addGroup(layout4.createParallelGroup(Alignment.BASELINE).
+	            addComponent(encryptButton));
+	    vGroup4.addGroup(layout4.createParallelGroup(Alignment.BASELINE));
+	    vGroup4.addGroup(layout4.createParallelGroup(Alignment.BASELINE).
+	            addComponent(labelDec).addComponent(textDec).addComponent(browseDec));
+	    vGroup4.addGroup(layout4.createParallelGroup(Alignment.BASELINE));
+	    vGroup4.addGroup(layout4.createParallelGroup(Alignment.BASELINE).
+	            addComponent(decBoxAES).addComponent(decBoxRSA));
+	    vGroup4.addGroup(layout4.createParallelGroup(Alignment.BASELINE));
+	    vGroup4.addGroup(layout4.createParallelGroup(Alignment.BASELINE).
+	            addComponent(decryptButton));
+	    vGroup4.addGroup(layout4.createParallelGroup(Alignment.BASELINE));
+	    layout4.setVerticalGroup(vGroup4);
 	}
 }
