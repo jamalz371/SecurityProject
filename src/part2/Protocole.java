@@ -31,4 +31,9 @@ public class Protocole {
 		return check;
 	}
 	
+	public byte[] step2(){
+		byte[] res = null;
+		return res;
+	}
+	
 }

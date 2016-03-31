@@ -280,11 +280,11 @@ public class Window extends JFrame{
 		boxRSA.addActionListener(new expRSA());
 		buttonGenerate.addActionListener(new GenerateFile());
 		
-		tabbedPane.add("Exchange file",firstPan);
+		tabbedPane.add("Send file",firstPan);
 		tabbedPane.add("Generate and export",secondPan);
 		tabbedPane.add("Calculate signature SHA-3",thirdPan);
 		tabbedPane.add("Encrypt and decrypt files",fourthPan);
-		tabbedPane.setToolTipTextAt(0,"Exchange your favorite files");
+		tabbedPane.setToolTipTextAt(0,"Send your favorite files");
 		tabbedPane.setToolTipTextAt(1,"Generate a key and export it");
 		tabbedPane.setToolTipTextAt(2,"Calculate the signature SHA-3 of your favorite files");
 		tabbedPane.setToolTipTextAt(3,"Encrypt and decrypt your favorite files");
