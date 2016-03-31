@@ -7,15 +7,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class Client {
+public class ClientClearText {
     public static void main(String[] args) throws IOException {
-        new Client();
+        new ClientClearText();
     }
     
     private Socket socket = null;
     private String host = "127.0.0.1";    
     
-    public Client() throws IOException {
+    public ClientClearText() throws IOException {
 
 
         socket = new Socket(host, 4444);

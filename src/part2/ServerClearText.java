@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+public class ServerClearText {
     public static void main(String[] args) throws IOException {
         
     }
@@ -17,7 +17,7 @@ public class Server {
     private InputStream in = null;
     private OutputStream out = null;
     
-    public Server() throws IOException{
+    public ServerClearText() throws IOException{
     	ServerSocket serverSocket = null;
 
         try {
