@@ -210,6 +210,11 @@ public class Window extends JFrame{
 		String myPath = pathToFile;
 		
 	 }*/
+	 
+	public void initSessionKeys(){
+		SessionKey.setKeyAES();
+		SessionKey.setKeyRSA();
+	}
 	
 	private JTabbedPane tabbedPane = new JTabbedPane();
 
