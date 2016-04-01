@@ -27,8 +27,8 @@ public class Main {
 		//System.out.println("Le separateur : " + sep);
 		String b = AES_128.generateKeyHex();
 		System.out.println("clé AES en hex : " + b);
-		byte[] d = hexStringToByteArray(b);
-		System.out.println("clé AES en bytes : " + d);
+		//byte[] d = hexStringToByteArray(b);
+		//System.out.println("clé AES en bytes : " + d);
 		
 		Key k[] = RSA_2048.getKeys();
 		//System.out.println(k[0]); // clé publique en texte (ceci marche aussi)
@@ -38,7 +38,7 @@ public class Main {
 		Window.writeFile("hahahahaha".getBytes(), "C:\\Users\\JAMAL\\Desktop\\hahahahaha.txt");
 	}
 	
-	public static byte[] hexStringToByteArray(String s) {
+	/*public static byte[] hexStringToByteArray(String s) {
 	    int len = s.length();
 	    byte[] data = new byte[len / 2];
 	    for (int i = 0; i < len; i += 2) {
@@ -46,7 +46,7 @@ public class Main {
 	                             + Character.digit(s.charAt(i+1), 16));
 	    }
 	    return data;
-	}
+	}*/
 	
 	
 	public static void RSA_2048_Exemple(byte[] in) {
@@ -89,7 +89,6 @@ public class Main {
 		String msg = "Il va pleuvoir demain";
 		return SHA_3.digest(msg.getBytes());
 	}
-	
 
 	
 
