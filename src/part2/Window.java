@@ -197,14 +197,14 @@ public class Window extends JFrame{
 	}
 	
 	
-	 
-	 public byte[] encryptFileAES_128(byte[] keyToUse, String pathToFile) throws IOException{ 
+	 // Fonction à supprimer
+	 /*public byte[] encryptFileAES_128(byte[] keyToUse, String pathToFile) throws IOException{ 
 		 String myPath = pathToFile;
 		//SecretKey keyK = AES_128.getKey();
 		byte[] contentFile = readFile(myPath);
 		byte[] encryptedContent = AES_128.encrypt(keyToUse,contentFile);
 		return encryptedContent;
-	}
+	}*/
 	 
 	 /*public byte[] decryptFileAES_128(String pathToFile) throws IOException{
 		String myPath = pathToFile;
