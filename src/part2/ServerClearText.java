@@ -39,6 +39,7 @@ public class ServerClearText {
         }
 
         try {
+        	// ajouter le getText() et le a.sperator ici pour récupérer le nom du fichier 
             out = new FileOutputStream("C:\\Users\\JAMAL\\Desktop\\RES.txt");
         } catch (FileNotFoundException ex) {
             System.out.println("File not found. ");
@@ -48,6 +49,7 @@ public class ServerClearText {
 
         int count;
         while ((count = in.read(bytes)) > 0) {
+        	// ajouter le déchiffrement ici 
             out.write(bytes, 0, count);
         }
 

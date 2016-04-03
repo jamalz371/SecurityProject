@@ -66,6 +66,17 @@ public class Window extends JFrame{
 	    }
 	}
 	
+	class BrowseEnc implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+	        JFileChooser c3 = new JFileChooser();
+	        // Open dialog window to browse files
+	        int rVal2 = c3.showOpenDialog(Window.this);
+	        if (rVal2 == JFileChooser.APPROVE_OPTION){
+	        	textEnc.setText(c3.getSelectedFile().getAbsolutePath());
+	      }
+	    }
+	}
+	
 	class CalculateSign implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String nameChoose = textNameSignature.getText();
@@ -284,6 +295,7 @@ public class Window extends JFrame{
 		boxAES.addActionListener(new expAES());
 		boxRSA.addActionListener(new expRSA());
 		buttonGenerate.addActionListener(new GenerateFile());
+		browseEnc.addActionListener(new BrowseEnc());
 		
 		tabbedPane.add("Send file",firstPan);
 		tabbedPane.add("Generate and export",secondPan);
@@ -294,11 +306,11 @@ public class Window extends JFrame{
 		tabbedPane.setToolTipTextAt(2,"Calculate the signature SHA-3 of your favorite files");
 		tabbedPane.setToolTipTextAt(3,"Encrypt and decrypt your favorite files");
 		
+		
+		this.add(tabbedPane);
+		
 		this.setIconImage(new ImageIcon("C:/Users/JAMAL/Desktop/images_secure_transfer_files.jpg").getImage());
-		
-		add(tabbedPane);
-		
-		this.setTitle("Security Exchange");
+		this.setTitle("Security Exchange Files");
 		this.setSize(700,300);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -13,13 +13,14 @@ public class ClientClearText {
     }
     
     private Socket socket = null;
-    private String host = "127.0.0.1";    
+    private String host = "127.0.0.1";    // null
     
     public ClientClearText() throws IOException {
 
 
         socket = new Socket(host, 4444);
 
+        // getText() ici ;
         File file = new File("C:\\Users\\JAMAL\\Desktop\\master cybersécurité ULB.txt");
         // Get the size of the file
         long length = file.length();
