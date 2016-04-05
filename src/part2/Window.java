@@ -70,9 +70,20 @@ public class Window extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 	        JFileChooser c3 = new JFileChooser();
 	        // Open dialog window to browse files
-	        int rVal2 = c3.showOpenDialog(Window.this);
-	        if (rVal2 == JFileChooser.APPROVE_OPTION){
+	        int rVal3 = c3.showOpenDialog(Window.this);
+	        if (rVal3 == JFileChooser.APPROVE_OPTION){
 	        	textEnc.setText(c3.getSelectedFile().getAbsolutePath());
+	      }
+	    }
+	}
+	
+	class BrowseDec implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+	        JFileChooser c4 = new JFileChooser();
+	        // Open dialog window to browse files
+	        int rVal4 = c4.showOpenDialog(Window.this);
+	        if (rVal4 == JFileChooser.APPROVE_OPTION){
+	        	textDec.setText(c4.getSelectedFile().getAbsolutePath());
 	      }
 	    }
 	}
@@ -120,6 +131,82 @@ public class Window extends JFrame{
 		}
 	}
 	
+	class encryptThisAES implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			encAESCheck = ! encAESCheck;
+		}
+	}
+	
+	class encryptThisRSA implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			encRSACheck = ! encRSACheck;
+		}
+	}
+	
+	class decryptThisAES implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			decAESCheck = ! decAESCheck;
+		}
+	}
+	
+	class decryptThisRSA implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			decRSACheck = ! decRSACheck;
+		}
+	}
+	
+	class GenerateEncryptedFile implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			if(encAESCheck){
+				String tmpPath = textEnc.getText();
+				File encFile = new File("");
+				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "encrypted_File_AES.txt";
+				System.out.println("EMPLACEMENT : " + nameEncryptedFile);
+				byte[] getFileContent = readFile(tmpPath);
+				SessionKey.setKeyAES();
+				byte[] encryptedFileContent = AES_128.encrypt(SessionKey.getKeyAES().getEncoded(),getFileContent);
+				writeFile(encryptedFileContent,nameEncryptedFile);
+			}
+			else if(encRSACheck){
+				String tmpPath = textEnc.getText();
+				File encFile = new File("");
+				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "encrypted_File_RSA.txt";
+				System.out.println("EMPLACEMENT : " + nameEncryptedFile);
+				byte[] getFileContent = readFile(tmpPath);
+				SessionKey.setKeysRSA();
+				Key[] curKeys = SessionKey.getKeysRSA();
+				byte[] encryptedFileContent = RSA_2048.encrypt(curKeys[0].getEncoded(), getFileContent);
+				writeFile(encryptedFileContent,nameEncryptedFile);
+			}
+				
+		}
+	}
+	
+	class GenerateDecryptedFile implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			if(decAESCheck){
+				String tmpPath = textDec.getText();
+				File encFile = new File("");
+				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "decrypted_File_AES.txt";
+				System.out.println("EMPLACEMENT : " + nameEncryptedFile);
+				byte[] getFileContent = readFile(tmpPath);
+				SecretKey curKey = SessionKey.getKeyAES();
+				byte[] encryptedFileContent = AES_128.decrypt(curKey.getEncoded(),getFileContent);
+				writeFile(encryptedFileContent,nameEncryptedFile);
+			}
+			else if(encRSACheck){
+				String tmpPath = textDec.getText();
+				File encFile = new File("");
+				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "encrypted_File_RSA.txt";
+				System.out.println("EMPLACEMENT : " + nameEncryptedFile);
+				byte[] getFileContent = readFile(tmpPath);
+				Key[] curKeys = RSA_2048.getKeys();
+				byte[] encryptedFileContent = RSA_2048.decrypt(curKeys[1].getEncoded(), getFileContent);
+				writeFile(encryptedFileContent,nameEncryptedFile);
+			}
+				
+		}
+	}
 	
 	public byte[] readFile(String nf){
 		File file = new File(nf);
@@ -158,6 +245,7 @@ public class Window extends JFrame{
 			FileOutputStream fos = new FileOutputStream(new File(pathNameFile));
 			try {
 				fos.write(content);
+				fos.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -224,7 +312,7 @@ public class Window extends JFrame{
 	 
 	public void initSessionKeys(){
 		SessionKey.setKeyAES();
-		SessionKey.setKeyRSA();
+		SessionKey.setKeysRSA();
 	}
 	
 	private JTabbedPane tabbedPane = new JTabbedPane();
@@ -280,7 +368,10 @@ public class Window extends JFrame{
 	private JCheckBox decBoxRSA = new JCheckBox("RSA-2048");
 	private JCheckBox decBoxAES = new JCheckBox("AES-128");
 	private JButton decryptButton = new JButton("Decrypt");
-	
+	private boolean encAESCheck = false; 
+	private boolean encRSACheck = false;
+	private boolean decAESCheck = false; 
+	private boolean decRSACheck = false;
 	
 	public Window(){
 	
@@ -296,6 +387,13 @@ public class Window extends JFrame{
 		boxRSA.addActionListener(new expRSA());
 		buttonGenerate.addActionListener(new GenerateFile());
 		browseEnc.addActionListener(new BrowseEnc());
+		encBoxAES.addActionListener(new encryptThisAES());
+		encBoxRSA.addActionListener(new encryptThisRSA());
+		encryptButton.addActionListener(new GenerateEncryptedFile());
+		browseDec.addActionListener(new BrowseDec());
+		decBoxAES.addActionListener(new decryptThisAES());
+		decBoxRSA.addActionListener(new decryptThisRSA());
+		decryptButton.addActionListener(new GenerateDecryptedFile());
 		
 		tabbedPane.add("Send file",firstPan);
 		tabbedPane.add("Generate and export",secondPan);

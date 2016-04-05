@@ -15,7 +15,7 @@ public class SessionKey {
 		System.out.println("clé RSA au départ : " + myKeysRSA);
 		setKeyAES();
 		System.out.println("clé AES après : " + getKeyAES().getEncoded());
-		setKeyRSA();
+		setKeysRSA();
 		System.out.println("clé publique RSA après : " + myKeysRSA[0]);
 		System.out.println("clé privée RSA après : " + myKeysRSA[1].getEncoded());
 	}
@@ -32,7 +32,7 @@ public class SessionKey {
 		return myKeyAES;
 	}
 	
-	public static void setKeyRSA(){
+	public static void setKeysRSA(){
 		myKeysRSA = RSA_2048.getKeys();
 	}
 	
