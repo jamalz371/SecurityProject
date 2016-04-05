@@ -164,7 +164,8 @@ public class Window extends JFrame{
 				System.out.println("EMPLACEMENT : " + nameEncryptedFile);
 				byte[] getFileContent = readFile(tmpPath);
 				SessionKey.setKeyAES();
-				byte[] encryptedFileContent = AES_128.encrypt(SessionKey.getKeyAES().getEncoded(),getFileContent);
+				SecretKey curKey = SessionKey.getKeyAES();
+				byte[] encryptedFileContent = AES_128.encrypt(curKey.getEncoded(),getFileContent);
 				writeFile(encryptedFileContent,nameEncryptedFile);
 			}
 			else if(encRSACheck){
@@ -173,8 +174,8 @@ public class Window extends JFrame{
 				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "encrypted_File_RSA.txt";
 				System.out.println("EMPLACEMENT : " + nameEncryptedFile);
 				byte[] getFileContent = readFile(tmpPath);
-				SessionKey.setKeysRSA();
 				Key[] curKeys = SessionKey.getKeysRSA();
+				System.out.println("INITIAL KEYS : " + curKeys[1].getEncoded());
 				byte[] encryptedFileContent = RSA_2048.encrypt(curKeys[0].getEncoded(), getFileContent);
 				writeFile(encryptedFileContent,nameEncryptedFile);
 			}
@@ -191,18 +192,20 @@ public class Window extends JFrame{
 				System.out.println("EMPLACEMENT : " + nameEncryptedFile);
 				byte[] getFileContent = readFile(tmpPath);
 				SecretKey curKey = SessionKey.getKeyAES();
-				byte[] encryptedFileContent = AES_128.decrypt(curKey.getEncoded(),getFileContent);
-				writeFile(encryptedFileContent,nameEncryptedFile);
+				byte[] decryptedFileContent = AES_128.decrypt(curKey.getEncoded(),getFileContent);
+				writeFile(decryptedFileContent,nameEncryptedFile);
 			}
-			else if(encRSACheck){
+			else if(decRSACheck){
 				String tmpPath = textDec.getText();
 				File encFile = new File("");
-				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "encrypted_File_RSA.txt";
+				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "decrypted_File_RSA.txt";
 				System.out.println("EMPLACEMENT : " + nameEncryptedFile);
 				byte[] getFileContent = readFile(tmpPath);
-				Key[] curKeys = RSA_2048.getKeys();
-				byte[] encryptedFileContent = RSA_2048.decrypt(curKeys[1].getEncoded(), getFileContent);
-				writeFile(encryptedFileContent,nameEncryptedFile);
+				Key[] curKeys = SessionKey.getKeysRSA();
+				System.out.println("KEYS : " + curKeys[1].getEncoded());
+				byte[] decryptedFileContent = RSA_2048.decrypt(curKeys[1].getEncoded(),getFileContent);
+				writeFile(decryptedFileContent,nameEncryptedFile);
+				System.out.println("decrypted : " + decryptedFileContent.toString());
 			}
 				
 		}
@@ -310,6 +313,7 @@ public class Window extends JFrame{
 		
 	 }*/
 	 
+	
 	public void initSessionKeys(){
 		SessionKey.setKeyAES();
 		SessionKey.setKeysRSA();
@@ -322,11 +326,13 @@ public class Window extends JFrame{
 	private JPanel secondPan = new JPanel();
 	private JPanel thirdPan = new JPanel();
 	private JPanel fourthPan = new JPanel();
+	private JPanel fifthPan = new JPanel();
 	
 	GroupLayout layout = new GroupLayout(firstPan);
 	GroupLayout layout2 = new GroupLayout(secondPan);
 	GroupLayout layout3 = new GroupLayout(thirdPan);
 	GroupLayout layout4 = new GroupLayout(fourthPan);
+	GroupLayout layout5 = new GroupLayout(fifthPan);
 	
 	// Elements of the first tab
 	private JLabel labelIP= new JLabel("IP : ");
@@ -373,12 +379,20 @@ public class Window extends JFrame{
 	private boolean decAESCheck = false; 
 	private boolean decRSACheck = false;
 	
+	//Elements of the fifth tab
+	private JLabel labelPortReceive = new JLabel("PORT : ");
+	private JTextField textPortReceive = new JTextField("",6);
+	private JLabel labelNameFileReceive = new JLabel("Choose a name for the file : ");
+	private JTextField textNameReceive = new JTextField("",30);
+	private JButton buttonReady = new JButton("Ready");
+	
 	public Window(){
 	
 		initFirstTab();
 		initSecondTab();
 		intThirdTab();
 		initFourthTab();
+		intFifthTab();
 		
 		buttonBrowse.addActionListener(new BrowseFiles());
 		butBrowseSignature.addActionListener(new BrowseFileSign());
@@ -399,14 +413,14 @@ public class Window extends JFrame{
 		tabbedPane.add("Generate and export",secondPan);
 		tabbedPane.add("Calculate signature SHA-3",thirdPan);
 		tabbedPane.add("Encrypt and decrypt files",fourthPan);
+		tabbedPane.add("Receive file",fifthPan);
 		tabbedPane.setToolTipTextAt(0,"Send your favorite files");
 		tabbedPane.setToolTipTextAt(1,"Generate a key and export it");
 		tabbedPane.setToolTipTextAt(2,"Calculate the signature SHA-3 of your favorite files");
 		tabbedPane.setToolTipTextAt(3,"Encrypt and decrypt your favorite files");
-		
+		tabbedPane.setToolTipTextAt(4,"Receive your favorite files");
 		
 		this.add(tabbedPane);
-		
 		this.setIconImage(new ImageIcon("C:/Users/JAMAL/Desktop/images_secure_transfer_files.jpg").getImage());
 		this.setTitle("Security Exchange Files");
 		this.setSize(700,300);
@@ -516,5 +530,26 @@ public class Window extends JFrame{
 	            addComponent(decryptButton));
 	    vGroup4.addGroup(layout4.createParallelGroup(Alignment.BASELINE));
 	    layout4.setVerticalGroup(vGroup4);
+	}
+	
+	public void intFifthTab(){
+		fifthPan.setLayout(layout5);
+		layout5.setAutoCreateGaps(true);
+		layout5.setAutoCreateContainerGaps(true);
+		GroupLayout.SequentialGroup hGroup5 = layout5.createSequentialGroup();
+		hGroup5.addGroup(layout5.createParallelGroup().
+	            addComponent(labelPortReceive).addComponent(labelNameFileReceive).addComponent(buttonReady));
+		hGroup5.addGroup(layout5.createParallelGroup().
+	            addComponent(textPortReceive).addComponent(textNameReceive));
+	    layout5.setHorizontalGroup(hGroup5);
+	    GroupLayout.SequentialGroup vGroup5 = layout5.createSequentialGroup();
+	    vGroup5.addGroup(layout5.createParallelGroup(Alignment.BASELINE).
+	            addComponent(labelPortReceive).addComponent(textPortReceive));
+	    vGroup5.addGroup(layout5.createParallelGroup(Alignment.BASELINE).
+	            addComponent(labelNameFileReceive).addComponent(textNameReceive));
+	    vGroup5.addGroup(layout5.createParallelGroup(Alignment.BASELINE));
+	    vGroup5.addGroup(layout5.createParallelGroup(Alignment.BASELINE).
+	            addComponent(buttonReady));
+	    layout5.setVerticalGroup(vGroup5);
 	}
 }
