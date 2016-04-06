@@ -36,10 +36,14 @@ public class KeysTest {
 		byte[] plainRSA = RSA_2048.decrypt(tmp[1].getEncoded(), resRSA);
 		
 		try {
+			String testRSA = new String(resRSA,"UTF-8");
+			String testRSAPlain = new String(plainRSA,"UTF-8");
 			System.out.println("CipherText : " + new String(resAES,"UTF-8"));
 			System.out.println("PlainText : " + new String(plainAES,"UTF-8"));
 			System.out.println("CipherText RSA: " + new String(resRSA,"UTF-8"));
 			System.out.println("PlainText RSA : " + new String(plainRSA,"UTF-8"));
+			System.out.println("testRSA cipher : " + testRSA);
+			System.out.println("testRSA plain : " + testRSAPlain);
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

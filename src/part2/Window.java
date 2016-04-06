@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.Key;
 import java.util.Base64;
 
@@ -174,14 +175,32 @@ public class Window extends JFrame{
 				File encFile = new File("");
 				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "encrypted_File_RSA.txt";
 				byte[] getFileContent = readFile(tmpPath);
+				try {
+					String testContent = new String(getFileContent,"UTF-8");
+					System.out.println("Contenu : " + testContent);
+				} catch (UnsupportedEncodingException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 				//SessionKey.setKeysRSA();
 				Key[] curKeys = SessionKey.getKeysRSA();
 				byte[] encryptedFileContent = RSA_2048.encrypt(curKeys[0].getEncoded(), getFileContent);
-				writeFile(encryptedFileContent,nameEncryptedFile);
+				myB = encryptedFileContent;
+				try {
+					String textCipher = new String(encryptedFileContent,"UTF-8");
+					writeFile(textCipher.getBytes(),nameEncryptedFile);
+				} catch (UnsupportedEncodingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 				
 		}
 	}
+	
+	// Used to Contain the encrypted bytes of RSA
+	public byte[] myB = null;
 	
 	class GenerateDecryptedFile implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -198,10 +217,17 @@ public class Window extends JFrame{
 				String tmpPath = textDec.getText();
 				File encFile = new File("");
 				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "decrypted_File_RSA.txt";
-				byte[] getFileContent = readFile(tmpPath);
 				Key[] curKeys = SessionKey.getKeysRSA();
-				byte[] decryptedFileContent = RSA_2048.decrypt(curKeys[1].getEncoded(),getFileContent);
-				writeFile(decryptedFileContent,nameEncryptedFile);
+				byte[] decryptedFileContent = RSA_2048.decrypt(curKeys[1].getEncoded(),myB);
+				try {
+					String plainRSA = new String(decryptedFileContent,"UTF-8");
+					System.out.println("plainRSA : " + plainRSA);
+					writeFile(plainRSA.getBytes(),nameEncryptedFile);
+				} catch (UnsupportedEncodingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 				
 		}
@@ -216,7 +242,7 @@ public class Window extends JFrame{
 			fin.read(fileContent);
 			String s = new String(fileContent);
 			//System.out.println("File content: " + s);
-			return s.getBytes();
+			return s.getBytes("UTF-8");
 		}
 		catch (FileNotFoundException e) {
 			System.out.println("File not found" + e);
