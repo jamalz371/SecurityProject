@@ -174,7 +174,7 @@ public class Window extends JFrame{
 				File encFile = new File("");
 				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "encrypted_File_RSA.txt";
 				byte[] getFileContent = readFile(tmpPath);
-				SessionKey.setKeysRSA();
+				//SessionKey.setKeysRSA();
 				Key[] curKeys = SessionKey.getKeysRSA();
 				byte[] encryptedFileContent = RSA_2048.encrypt(curKeys[0].getEncoded(), getFileContent);
 				writeFile(encryptedFileContent,nameEncryptedFile);
