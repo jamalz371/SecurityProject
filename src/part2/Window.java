@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Key;
+import java.util.Base64;
 
 import javax.crypto.SecretKey;
 import javax.swing.GroupLayout;
@@ -161,7 +162,7 @@ public class Window extends JFrame{
 				String tmpPath = textEnc.getText();
 				File encFile = new File("");
 				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "encrypted_File_AES.txt";
-				System.out.println("EMPLACEMENT : " + nameEncryptedFile);
+				//System.out.println("EMPLACEMENT : " + nameEncryptedFile);
 				byte[] getFileContent = readFile(tmpPath);
 				SessionKey.setKeyAES();
 				SecretKey curKey = SessionKey.getKeyAES();
@@ -172,10 +173,9 @@ public class Window extends JFrame{
 				String tmpPath = textEnc.getText();
 				File encFile = new File("");
 				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "encrypted_File_RSA.txt";
-				System.out.println("EMPLACEMENT : " + nameEncryptedFile);
 				byte[] getFileContent = readFile(tmpPath);
+				SessionKey.setKeysRSA();
 				Key[] curKeys = SessionKey.getKeysRSA();
-				System.out.println("INITIAL KEYS : " + curKeys[1].getEncoded());
 				byte[] encryptedFileContent = RSA_2048.encrypt(curKeys[0].getEncoded(), getFileContent);
 				writeFile(encryptedFileContent,nameEncryptedFile);
 			}
@@ -189,7 +189,6 @@ public class Window extends JFrame{
 				String tmpPath = textDec.getText();
 				File encFile = new File("");
 				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "decrypted_File_AES.txt";
-				System.out.println("EMPLACEMENT : " + nameEncryptedFile);
 				byte[] getFileContent = readFile(tmpPath);
 				SecretKey curKey = SessionKey.getKeyAES();
 				byte[] decryptedFileContent = AES_128.decrypt(curKey.getEncoded(),getFileContent);
@@ -199,13 +198,10 @@ public class Window extends JFrame{
 				String tmpPath = textDec.getText();
 				File encFile = new File("");
 				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "decrypted_File_RSA.txt";
-				System.out.println("EMPLACEMENT : " + nameEncryptedFile);
 				byte[] getFileContent = readFile(tmpPath);
 				Key[] curKeys = SessionKey.getKeysRSA();
-				System.out.println("KEYS : " + curKeys[1].getEncoded());
 				byte[] decryptedFileContent = RSA_2048.decrypt(curKeys[1].getEncoded(),getFileContent);
 				writeFile(decryptedFileContent,nameEncryptedFile);
-				System.out.println("decrypted : " + decryptedFileContent.toString());
 			}
 				
 		}
@@ -219,7 +215,7 @@ public class Window extends JFrame{
 			byte fileContent[] = new byte[(int)file.length()];
 			fin.read(fileContent);
 			String s = new String(fileContent);
-			System.out.println("File content: " + s);
+			//System.out.println("File content: " + s);
 			return s.getBytes();
 		}
 		catch (FileNotFoundException e) {
@@ -260,8 +256,6 @@ public class Window extends JFrame{
 	}
 	
 	public void exportAES_128() throws IOException{ 
-		//String current = new java.io.File( "." ).getCanonicalPath();
-	   // System.out.println("Current dir:"+current);
 		//File filer = new File("");
 		//String path = filer.getAbsolutePath();
 		//String sep = a.separator;
@@ -269,14 +263,15 @@ public class Window extends JFrame{
 	    String emplacement = "C:\\Users\\JAMAL\\Desktop\\" + pathFull;
 		FileOutputStream fos = new FileOutputStream(new File(emplacement));
 	    String resultKey = AES_128.generateKeyHex();
-	    fos.write("Key AES-128 in Hexadecimal format : \r\n".getBytes());
+	    fos.write("Key AES-128 in Hexadecimal format : \r\n\r\n".getBytes());
 	    fos.write(resultKey.getBytes());
+	    String encodedKey = Base64.getEncoder().encodeToString(resultKey.getBytes());
+		fos.write("\r\n\r\nKey AES-128 in string format : \r\n\r\n".getBytes());
+		fos.write(encodedKey.getBytes());
 	    fos.close();
 	}
 	
 	public void exportRSA_2048() throws IOException{ 
-		//String current = new java.io.File( "." ).getCanonicalPath();
-	   // System.out.println("Current dir:"+current);
 		//File filer = new File("");
 		//String path = filer.getAbsolutePath();
 		//String sep = a.separator;
@@ -285,16 +280,18 @@ public class Window extends JFrame{
 		FileOutputStream fos = new FileOutputStream(new File(emplacement));
 		Key k[] = RSA_2048.getKeys();
 		fos.write(k[0].toString().getBytes());
-		fos.write("\r\n".getBytes());
-		fos.write("-----------------------------------------------------".getBytes());
-		fos.write("\r\n".getBytes());
-		fos.write("Public key RSA-2048 in Hexadecimal format : \r\n".getBytes());
+		fos.write("\r\n\r\n-----------------------------------------------------".getBytes());
+		fos.write("\r\n\r\nPublic key RSA-2048 in Hexadecimal format : \r\n\r\n".getBytes());
 		fos.write(RSA_2048.bytesToHexRepresentation(k[0].getEncoded()).getBytes());
-	    fos.write("\r\n".getBytes());
-	    fos.write("-----------------------------------------------------".getBytes());
-	    fos.write("\r\n".getBytes());
-		fos.write("Private key RSA-2048 in Hexadecimal format : \r\n".getBytes());
+	    fos.write("\r\n\r\nPublic key RSA-2048 in string format : \r\n\r\n".getBytes());
+	    String encodedKeyPublicRSA = Base64.getEncoder().encodeToString(k[0].getEncoded());
+	    fos.write(encodedKeyPublicRSA.getBytes());
+	    fos.write("\r\n\r\n-----------------------------------------------------".getBytes());
+		fos.write("\r\n\r\nPrivate key RSA-2048 in Hexadecimal format : \r\n\r\n".getBytes());
 	    fos.write(RSA_2048.bytesToHexRepresentation(k[1].getEncoded()).getBytes());
+	    String encodedKeyPrivateRSA = Base64.getEncoder().encodeToString(k[1].getEncoded());
+	    fos.write("\r\n\r\nPrivate key RSA-2048 in string format : \r\n\r\n".getBytes());
+	    fos.write(encodedKeyPrivateRSA.getBytes());
 	    fos.close();
 	}
 	

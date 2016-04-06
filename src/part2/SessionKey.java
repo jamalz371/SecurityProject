@@ -16,13 +16,12 @@ public class SessionKey {
 		setKeyAES();
 		System.out.println("clé AES après : " + getKeyAES().getEncoded());
 		setKeysRSA();
-		System.out.println("clé publique RSA après : " + myKeysRSA[0]);
-		System.out.println("clé privée RSA après : " + myKeysRSA[1].getEncoded());
+		
 	}
 	
 	
 	private static SecretKey myKeyAES;
-	private static Key[] myKeysRSA;
+	private static final Key[] myKeysRSA = setKeysRSA();
 	
 	public static void setKeyAES(){
 		myKeyAES = AES_128.getKey();
@@ -32,12 +31,20 @@ public class SessionKey {
 		return myKeyAES;
 	}
 	
-	public static void setKeysRSA(){
-		myKeysRSA = RSA_2048.getKeys();
+	public static Key[] setKeysRSA(){
+		return RSA_2048.getKeys();
 	}
 	
 	public static Key[] getKeysRSA(){
 		return myKeysRSA;
+	}
+	
+	public static void setPersonalRSA(Key in){
+		myKeysRSA[1] = in;
+	}
+	
+	public static Key getPersonalRSA(){
+		return myKeysRSA[1];
 	}
 
 }

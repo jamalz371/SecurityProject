@@ -21,7 +21,7 @@ public class ClientClearText {
         socket = new Socket(host, 4444);
 
         // getText() ici ;
-        File file = new File("C:\\Users\\JAMAL\\Desktop\\master cybersécurité ULB.txt");
+        File file = new File("C:\\Users\\JAMAL\\Desktop\\test.txt");
         // Get the size of the file
         long length = file.length();
         byte[] bytes = new byte[16 * 1024];

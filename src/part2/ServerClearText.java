@@ -10,7 +10,7 @@ import java.net.Socket;
 
 public class ServerClearText {
     public static void main(String[] args) throws IOException {
-        
+        new ServerClearText();
     }
     
     private Socket socket = null;
