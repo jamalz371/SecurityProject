@@ -242,7 +242,7 @@ public class Window extends JFrame{
 			fin.read(fileContent);
 			String s = new String(fileContent);
 			//System.out.println("File content: " + s);
-			return s.getBytes("UTF-8");
+			return s.getBytes();
 		}
 		catch (FileNotFoundException e) {
 			System.out.println("File not found" + e);
