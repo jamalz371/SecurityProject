@@ -1,10 +1,7 @@
 package part1;
 
 import java.security.Key;
-
 import javax.crypto.SecretKey;
-
-import part2.Window;
 
 public class Main {
 	

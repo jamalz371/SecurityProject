@@ -23,7 +23,7 @@ public class ClientClearText {
         // getText() ici ;
         File file = new File("C:\\Users\\JAMAL\\Desktop\\test.txt");
         // Get the size of the file
-        long length = file.length();
+        //long length = file.length();
         byte[] bytes = new byte[16 * 1024];
         InputStream in = new FileInputStream(file);
         OutputStream out = socket.getOutputStream();
