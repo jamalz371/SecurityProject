@@ -441,7 +441,7 @@ public class Window extends JFrame{
 		tabbedPane.setToolTipTextAt(4,"Receive your favorite files");
 		
 		this.add(tabbedPane);
-		this.setIconImage(new ImageIcon("C:/Users/JAMAL/Desktop/images_secure_transfer_files.jpg").getImage());
+		this.setIconImage(new ImageIcon("src/image/images_secure_transfer_files.jpg").getImage());
 		this.setTitle("Security Exchange Files");
 		this.setSize(700,300);
 		this.setLocationRelativeTo(null);
