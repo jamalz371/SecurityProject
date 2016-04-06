@@ -42,7 +42,7 @@ public class Main {
 			System.out.println("Cipher text :"+ new String(cipher,"UTF-8"));
 			
 			byte[] plainText = RSA_2048.decrypt(keys[1].getEncoded(),cipher);
-			System.out.println("Plain text :"+new String(plainText,"UTF-8"));
+			System.out.println("Plain text :"+ new String(plainText,"UTF-8"));
 		}
 		
 		catch(Exception e){
