@@ -163,7 +163,6 @@ public class Window extends JFrame{
 				String tmpPath = textEnc.getText();
 				File encFile = new File("");
 				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "encrypted_File_AES.txt";
-				//System.out.println("EMPLACEMENT : " + nameEncryptedFile);
 				byte[] getFileContent = readFile(tmpPath);
 				SessionKey.setKeyAES();
 				SecretKey curKey = SessionKey.getKeyAES();
@@ -182,7 +181,6 @@ public class Window extends JFrame{
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
-				//SessionKey.setKeysRSA();
 				Key[] curKeys = SessionKey.getKeysRSA();
 				byte[] encryptedFileContent = RSA_2048.encrypt(curKeys[0].getEncoded(), getFileContent);
 				myB = encryptedFileContent;
@@ -214,7 +212,6 @@ public class Window extends JFrame{
 				writeFile(decryptedFileContent,nameEncryptedFile);
 			}
 			else if(decRSACheck){
-				String tmpPath = textDec.getText();
 				File encFile = new File("");
 				String nameEncryptedFile = encFile.getAbsolutePath() + File.separator + "decrypted_File_RSA.txt";
 				Key[] curKeys = SessionKey.getKeysRSA();
