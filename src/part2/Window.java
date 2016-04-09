@@ -8,7 +8,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.Socket;
 import java.security.Key;
 import java.util.Base64;
 
@@ -230,6 +232,28 @@ public class Window extends JFrame{
 		}
 	}
 	
+	public Key[] publicKeyRSAToSend = null;
+	public Key[] publicKeyRSAToReceive = null;
+	
+	class SendPublicKeyRSA implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			publicKeyRSAToSend = SessionKey.getKeysRSA();
+			Socket socketSix = null;
+		    String host = textIPSix.getText();
+		    String portNumber = textPortSix.getText();
+		    int curPort = Integer.parseInt(portNumber);
+		    byte[] bytesKeyPublicRSA = publicKeyRSAToSend[0].getEncoded();
+		    try {
+		    	socketSix = new Socket(host,curPort);
+				OutputStream out = socketSix.getOutputStream();
+				out.write(bytesKeyPublicRSA);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+	
 	public byte[] readFile(String nf){
 		File file = new File(nf);
 		FileInputStream fin = null;
@@ -416,7 +440,14 @@ public class Window extends JFrame{
 	
 	// Elements of the sixth tab
 	
-	
+	private JLabel labelIPsix = new JLabel("IP : ");
+	private JTextField textIPSix = new JTextField("",30);
+	private JLabel labelPortSix = new JLabel("PORT : ");
+	private JTextField textPortSix = new JTextField("",30);
+	private JButton buttonGenerateKeySix = new JButton("Generate public key RSA and send it");
+	//private JButton buttonSendKeySix = new JButton("Send public key RSA");
+	private JButton buttonReceiveKeySix = new JButton("Receive public key RSA");
+	//private JButton viewKeySix = new JButton("View the public key RSA");
 	
 	public Window(){
 	
@@ -425,7 +456,7 @@ public class Window extends JFrame{
 		intThirdTab();
 		initFourthTab();
 		initFifthTab();
-		//initSixthTab();
+		initSixthTab();
 		
 		buttonBrowse.addActionListener(new BrowseFiles());
 		butBrowseSignature.addActionListener(new BrowseFileSign());
@@ -441,22 +472,25 @@ public class Window extends JFrame{
 		decBoxAES.addActionListener(new decryptThisAES());
 		decBoxRSA.addActionListener(new decryptThisRSA());
 		decryptButton.addActionListener(new GenerateDecryptedFile());
+		buttonGenerateKeySix.addActionListener(new SendPublicKeyRSA());
 		
 		tabbedPane.add("Send file",firstPan);
 		tabbedPane.add("Generate and export",secondPan);
 		tabbedPane.add("Calculate signature SHA-3",thirdPan);
 		tabbedPane.add("Encrypt and decrypt files",fourthPan);
 		tabbedPane.add("Receive file",fifthPan);
+		tabbedPane.add("Exchange the keys",sixthPan);
 		tabbedPane.setToolTipTextAt(0,"Send your favorite files");
 		tabbedPane.setToolTipTextAt(1,"Generate a key and export it");
 		tabbedPane.setToolTipTextAt(2,"Calculate the signature SHA-3 of your favorite files");
 		tabbedPane.setToolTipTextAt(3,"Encrypt and decrypt your favorite files");
 		tabbedPane.setToolTipTextAt(4,"Receive your favorite files");
+		tabbedPane.setToolTipTextAt(5,"Send and receive the public RSA keys");
 		
 		this.add(tabbedPane);
 		this.setIconImage(new ImageIcon("src/image/images_secure_transfer_files.jpg").getImage());
 		this.setTitle("Security Exchange Files");
-		this.setSize(700,300);
+		this.setSize(800,300);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
@@ -471,10 +505,10 @@ public class Window extends JFrame{
 		hGroup.addGroup(layout.createParallelGroup().
 	            addComponent(labelIP).addComponent(labelPort).addComponent(labelChooseFile).addComponent(buttonSend));
 	    hGroup.addGroup(layout.createParallelGroup().
-	            addComponent(textIP).addComponent(textPort).addComponent(textChooseFile).addComponent(buttonSend));
-	    layout.setHorizontalGroup(hGroup);
+	            addComponent(textIP).addComponent(textPort).addComponent(textChooseFile));
 	    hGroup.addGroup(layout.createParallelGroup().
 	            addComponent(buttonBrowse));
+	    layout.setHorizontalGroup(hGroup);
 	    GroupLayout.SequentialGroup vGroup = layout.createSequentialGroup();
 	    vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE).
 	            addComponent(labelIP).addComponent(textIP));
@@ -587,23 +621,25 @@ public class Window extends JFrame{
 	}
 	
 	public void initSixthTab(){
-		fifthPan.setLayout(layout5);
-		layout5.setAutoCreateGaps(true);
-		layout5.setAutoCreateContainerGaps(true);
-		GroupLayout.SequentialGroup hGroup5 = layout5.createSequentialGroup();
-		hGroup5.addGroup(layout5.createParallelGroup().
-	            addComponent(labelPortReceive).addComponent(labelNameFileReceive).addComponent(buttonReady));
-		hGroup5.addGroup(layout5.createParallelGroup().
-	            addComponent(textPortReceive).addComponent(textNameReceive));
-	    layout5.setHorizontalGroup(hGroup5);
-	    GroupLayout.SequentialGroup vGroup5 = layout5.createSequentialGroup();
-	    vGroup5.addGroup(layout5.createParallelGroup(Alignment.BASELINE).
-	            addComponent(labelPortReceive).addComponent(textPortReceive));
-	    vGroup5.addGroup(layout5.createParallelGroup(Alignment.BASELINE).
-	            addComponent(labelNameFileReceive).addComponent(textNameReceive));
-	    vGroup5.addGroup(layout5.createParallelGroup(Alignment.BASELINE));
-	    vGroup5.addGroup(layout5.createParallelGroup(Alignment.BASELINE).
-	            addComponent(buttonReady));
-	    layout5.setVerticalGroup(vGroup5);
+		sixthPan.setLayout(layout6);
+		layout6.setAutoCreateGaps(true);
+		layout6.setAutoCreateContainerGaps(true);
+		GroupLayout.SequentialGroup hGroup6 = layout6.createSequentialGroup();
+		hGroup6.addGroup(layout6.createParallelGroup().
+	            addComponent(labelIPsix).addComponent(labelPortSix).addComponent(buttonGenerateKeySix));
+		hGroup6.addGroup(layout6.createParallelGroup().
+	            addComponent(textIPSix).addComponent(textPortSix));//.addComponent(buttonSendKeySix));
+		hGroup6.addGroup(layout6.createParallelGroup().
+	            addComponent(buttonReceiveKeySix));
+	    layout6.setHorizontalGroup(hGroup6);
+	    GroupLayout.SequentialGroup vGroup6 = layout6.createSequentialGroup();
+	    vGroup6.addGroup(layout6.createParallelGroup(Alignment.BASELINE).
+	            addComponent(labelIPsix).addComponent(textIPSix));
+	    vGroup6.addGroup(layout6.createParallelGroup(Alignment.BASELINE).
+	            addComponent(labelPortSix).addComponent(textPortSix));
+	    vGroup6.addGroup(layout6.createParallelGroup(Alignment.BASELINE).
+	            addComponent(buttonGenerateKeySix).addComponent(buttonReceiveKeySix));//.addComponent(buttonSendKeySix).addComponent(buttonReceiveKeySix));
+	    vGroup6.addGroup(layout6.createParallelGroup(Alignment.BASELINE));
+	    layout6.setVerticalGroup(vGroup6);
 	}
 }
