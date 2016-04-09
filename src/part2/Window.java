@@ -8,10 +8,17 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.Key;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 import javax.crypto.SecretKey;
@@ -254,6 +261,55 @@ public class Window extends JFrame{
 		}
 	}
 	
+	class ReceivePublicKeyRSA implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			Socket socket = null;
+			InputStream in = null;
+			//OutputStream out = null;
+			ServerSocket serverSocket = null;
+		    String portNumber = textPortSix.getText();
+		    int curPort = Integer.parseInt(portNumber);
+		    
+	        try {
+	            serverSocket = new ServerSocket(curPort);
+	        } catch (IOException ex) {
+	            System.out.println("Can't setup server on this port number. ");
+	        }
+
+	        try {
+	            socket = serverSocket.accept();
+	        } catch (IOException ex) {
+	            System.out.println("Can't accept client connection. ");
+	        }
+
+	        try {
+	            in = socket.getInputStream();
+	        } catch (IOException ex) {
+	            System.out.println("Can't get socket input stream. ");
+	        }
+
+	        byte[] storeBytes = new byte[16*1024];
+
+	        PublicKey publicKey = null;
+	        
+	        try {
+				while ((in.read(storeBytes)) > 0) {
+
+				}
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	        try {
+				publicKey = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(storeBytes));
+			} catch (InvalidKeySpecException | NoSuchAlgorithmException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	        System.out.println("Stored : " + publicKey.getEncoded());
+		}
+	}
+	
 	public byte[] readFile(String nf){
 		File file = new File(nf);
 		FileInputStream fin = null;
@@ -473,6 +529,7 @@ public class Window extends JFrame{
 		decBoxRSA.addActionListener(new decryptThisRSA());
 		decryptButton.addActionListener(new GenerateDecryptedFile());
 		buttonGenerateKeySix.addActionListener(new SendPublicKeyRSA());
+		buttonReceiveKeySix.addActionListener(new ReceivePublicKeyRSA());
 		
 		tabbedPane.add("Send file",firstPan);
 		tabbedPane.add("Generate and export",secondPan);
@@ -628,9 +685,7 @@ public class Window extends JFrame{
 		hGroup6.addGroup(layout6.createParallelGroup().
 	            addComponent(labelIPsix).addComponent(labelPortSix).addComponent(buttonGenerateKeySix));
 		hGroup6.addGroup(layout6.createParallelGroup().
-	            addComponent(textIPSix).addComponent(textPortSix));//.addComponent(buttonSendKeySix));
-		hGroup6.addGroup(layout6.createParallelGroup().
-	            addComponent(buttonReceiveKeySix));
+	            addComponent(textIPSix).addComponent(textPortSix).addComponent(buttonReceiveKeySix));
 	    layout6.setHorizontalGroup(hGroup6);
 	    GroupLayout.SequentialGroup vGroup6 = layout6.createSequentialGroup();
 	    vGroup6.addGroup(layout6.createParallelGroup(Alignment.BASELINE).

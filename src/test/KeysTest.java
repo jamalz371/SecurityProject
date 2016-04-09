@@ -1,6 +1,8 @@
 package test;
 
 import java.io.UnsupportedEncodingException;
+import java.security.Key;
+
 import part1.AES_128;
 import part1.RSA_2048;
 import part2.SessionKey;
@@ -18,6 +20,12 @@ public class KeysTest {
 		System.out.println("AES key gethash : " + SessionKey.getKeyAES().hashCode());
 		System.out.println("AES key gethash : " + SessionKey.getKeyAES().hashCode());
 		System.out.println("AES key : " + SessionKey.getKeyAES());
+		
+		Key[] testLongueur = SessionKey.getKeysRSA();
+		System.out.println("Longueur clé : " + testLongueur[0].getEncoded().length);
+		System.out.println("Longueur clé : " + testLongueur[1].getEncoded().length);
+		
+		System.out.println("Format : " + testLongueur[0].getFormat());
 		
 		String message = "Salut tout le monde !";
 		byte[] resAES = AES_128.encrypt(SessionKey.getKeyAES().getEncoded(), message.getBytes());

@@ -7,6 +7,8 @@ public class ClientTest {
 		String c = "13";
 		int i = Integer.parseInt(c);
 		System.out.println("valeur : " + i);
+
+	
 	}
 
 }
