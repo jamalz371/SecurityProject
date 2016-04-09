@@ -45,13 +45,6 @@ public class Window extends JFrame{
 
 	public static void main(String[] args){
 		new Window();
-		/*Window w = new Window();
-		try {
-			w.encryptFileAES_128();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 	}
 	
 	class BrowseFiles implements ActionListener {
@@ -288,7 +281,7 @@ public class Window extends JFrame{
 	            System.out.println("Can't get socket input stream. ");
 	        }
 
-	        byte[] storeBytes = new byte[16*1024];
+	        byte[] storeBytes = null;
 
 	        PublicKey publicKey = null;
 	        
@@ -402,7 +395,7 @@ public class Window extends JFrame{
 	 // Fonction à supprimer
 	 /*public byte[] encryptFileAES_128(byte[] keyToUse, String pathToFile) throws IOException{ 
 		 String myPath = pathToFile;
-		//SecretKey keyK = AES_128.getKey();
+		//SecretKey keyK = AES_128.getKey(); // à changer par 	SessionKey.setKeyAES(); puis SecretKey curKey = SessionKey.getKeyAES();
 		byte[] contentFile = readFile(myPath);
 		byte[] encryptedContent = AES_128.encrypt(keyToUse,contentFile);
 		return encryptedContent;
@@ -412,7 +405,7 @@ public class Window extends JFrame{
 		String myPath = pathToFile;
 		
 	 }*/
-	 
+
 	
 	public void initSessionKeys(){
 		SessionKey.setKeyAES();
