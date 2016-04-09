@@ -342,19 +342,23 @@ public class Window extends JFrame{
 	private JTabbedPane tabbedPane = new JTabbedPane();
 
 	// The different tabs
+	
 	private JPanel firstPan = new JPanel();
 	private JPanel secondPan = new JPanel();
 	private JPanel thirdPan = new JPanel();
 	private JPanel fourthPan = new JPanel();
 	private JPanel fifthPan = new JPanel();
+	private JPanel sixthPan = new JPanel();
 	
 	GroupLayout layout = new GroupLayout(firstPan);
 	GroupLayout layout2 = new GroupLayout(secondPan);
 	GroupLayout layout3 = new GroupLayout(thirdPan);
 	GroupLayout layout4 = new GroupLayout(fourthPan);
 	GroupLayout layout5 = new GroupLayout(fifthPan);
+	GroupLayout layout6 = new GroupLayout(sixthPan);
 	
 	// Elements of the first tab
+	
 	private JLabel labelIP= new JLabel("IP : ");
 	private JTextField textIP = new JTextField("", 15);
 	private JLabel labelPort = new JLabel("Port : ");
@@ -365,6 +369,7 @@ public class Window extends JFrame{
 	private JButton buttonSend = new JButton("Send");
 	
 	// Elements of the second tab
+	
 	private JLabel labelChooseName = new JLabel("Choose a name for the file to export : ");
 	private JTextField textNameFile = new JTextField("",30);
 	private JCheckBox boxRSA = new JCheckBox("RSA-2048");
@@ -372,6 +377,7 @@ public class Window extends JFrame{
 	private JButton buttonGenerate = new JButton("Generate");
 	
 	// Elements of the third tab
+	
 	private JLabel labelFileSignature = new JLabel("Choose a file to calculate its signature : ");
 	private JTextField textNameSignature = new JTextField("",30);
 	private JButton butBrowseSignature = new JButton("Browse");
@@ -381,7 +387,8 @@ public class Window extends JFrame{
 	private boolean boxAESCheck = false; 
 	private boolean boxRSACheck = false;
 	
-	//Elements of the fourth tab
+	// Elements of the fourth tab
+	
 	private JLabel labelEnc = new JLabel("Choose the file to encrypt : ");
 	private JTextField textEnc = new JTextField("",30);
 	private JButton browseEnc = new JButton("Browse");
@@ -399,12 +406,17 @@ public class Window extends JFrame{
 	private boolean decAESCheck = false; 
 	private boolean decRSACheck = false;
 	
-	//Elements of the fifth tab
+	// Elements of the fifth tab
+	
 	private JLabel labelPortReceive = new JLabel("PORT : ");
 	private JTextField textPortReceive = new JTextField("",6);
 	private JLabel labelNameFileReceive = new JLabel("Choose a name for the file : ");
 	private JTextField textNameReceive = new JTextField("",30);
 	private JButton buttonReady = new JButton("Ready");
+	
+	// Elements of the sixth tab
+	
+	
 	
 	public Window(){
 	
@@ -412,7 +424,8 @@ public class Window extends JFrame{
 		initSecondTab();
 		intThirdTab();
 		initFourthTab();
-		intFifthTab();
+		initFifthTab();
+		//initSixthTab();
 		
 		buttonBrowse.addActionListener(new BrowseFiles());
 		butBrowseSignature.addActionListener(new BrowseFileSign());
@@ -552,7 +565,28 @@ public class Window extends JFrame{
 	    layout4.setVerticalGroup(vGroup4);
 	}
 	
-	public void intFifthTab(){
+	public void initFifthTab(){
+		fifthPan.setLayout(layout5);
+		layout5.setAutoCreateGaps(true);
+		layout5.setAutoCreateContainerGaps(true);
+		GroupLayout.SequentialGroup hGroup5 = layout5.createSequentialGroup();
+		hGroup5.addGroup(layout5.createParallelGroup().
+	            addComponent(labelPortReceive).addComponent(labelNameFileReceive).addComponent(buttonReady));
+		hGroup5.addGroup(layout5.createParallelGroup().
+	            addComponent(textPortReceive).addComponent(textNameReceive));
+	    layout5.setHorizontalGroup(hGroup5);
+	    GroupLayout.SequentialGroup vGroup5 = layout5.createSequentialGroup();
+	    vGroup5.addGroup(layout5.createParallelGroup(Alignment.BASELINE).
+	            addComponent(labelPortReceive).addComponent(textPortReceive));
+	    vGroup5.addGroup(layout5.createParallelGroup(Alignment.BASELINE).
+	            addComponent(labelNameFileReceive).addComponent(textNameReceive));
+	    vGroup5.addGroup(layout5.createParallelGroup(Alignment.BASELINE));
+	    vGroup5.addGroup(layout5.createParallelGroup(Alignment.BASELINE).
+	            addComponent(buttonReady));
+	    layout5.setVerticalGroup(vGroup5);
+	}
+	
+	public void initSixthTab(){
 		fifthPan.setLayout(layout5);
 		layout5.setAutoCreateGaps(true);
 		layout5.setAutoCreateContainerGaps(true);
