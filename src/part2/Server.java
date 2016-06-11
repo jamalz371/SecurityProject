@@ -8,20 +8,20 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerClearText {
+public class Server {
     public static void main(String[] args) throws IOException {
-        new ServerClearText();
+        new Server();
     }
     
     private Socket socket = null;
     private InputStream in = null;
     private OutputStream out = null;
     
-    public ServerClearText() throws IOException{
+    public Server() throws IOException{
     	ServerSocket serverSocket = null;
 
         try {
-            serverSocket = new ServerSocket(4444);
+            serverSocket = new ServerSocket(4455);
         } catch (IOException ex) {
             System.out.println("Can't setup server on this port number. ");
         }

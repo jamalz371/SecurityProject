@@ -2,6 +2,7 @@ package test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -13,11 +14,11 @@ public class SendKeyTest {
 		InputStream in = null;
 		//OutputStream out = null;
 		ServerSocket serverSocket = null;
-		int portNumber = 4444;
-	    
+		int portNumber = 443;
+	    String myAddress = "127.0.0.1";
 	    
         try {
-            serverSocket = new ServerSocket(portNumber);
+            serverSocket = new ServerSocket(portNumber,5,InetAddress.getByName(myAddress));
         } catch (IOException ex) {
             System.out.println("Can't setup server on this port number. ");
         }
@@ -39,14 +40,14 @@ public class SendKeyTest {
         
         try {
 			while ((in.read(storeBytes)) > 0) {
-
+				
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
         
-        System.out.println("Stored : " + storeBytes);
+        System.out.println("Stored : " + storeBytes.toString());
 	}
 }
 

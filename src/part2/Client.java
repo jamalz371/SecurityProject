@@ -7,18 +7,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class ClientClearText {
+public class Client {
     public static void main(String[] args) throws IOException {
-        new ClientClearText();
+        new Client();
     }
     
     private Socket socket = null;
     private String host = "127.0.0.1";    // null
     
-    public ClientClearText() throws IOException {
+    public Client() throws IOException {
 
 
-        socket = new Socket(host, 4444);
+        socket = new Socket(host, 4455);
 
         // getText() ici ;
         File file = new File("C:\\Users\\JAMAL\\Desktop\\test.txt");
