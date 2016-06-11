@@ -232,7 +232,7 @@ public class Window extends JFrame{
 		}
 	}
 	
-	class Sending implements ActionListener {
+	class Receiving implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Server myServ = new Server();
 			String tmp = textPortReceive.getText();
@@ -246,6 +246,24 @@ public class Window extends JFrame{
 				e1.printStackTrace();
 			}
 			
+		}
+	}
+	
+	class Sending implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			Client myCli = new Client();
+			String destinationIP = textIP.getText();
+			String tmpPort = textPort.getText();
+			int destPort = Integer.parseInt(tmpPort);
+			String fn = textChooseFile.getText();
+			myCli.setIP(destinationIP);
+			myCli.setPort(destPort);
+			try {
+				myCli.sendFile(fn);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 	
@@ -538,7 +556,8 @@ public class Window extends JFrame{
 		decBoxAES.addActionListener(new decryptThisAES());
 		decBoxRSA.addActionListener(new decryptThisRSA());
 		decryptButton.addActionListener(new GenerateDecryptedFile());
-		buttonReady.addActionListener(new Sending());
+		buttonReady.addActionListener(new Receiving());
+		buttonSend.addActionListener(new Sending());
 		
 		
 		
@@ -551,11 +570,11 @@ public class Window extends JFrame{
 		tabbedPane.add("Encrypt and decrypt files",fourthPan);
 		tabbedPane.add("Receive file",fifthPan);
 		tabbedPane.add("Exchange the keys",sixthPan);
-		tabbedPane.setToolTipTextAt(0,"Send your favorite files");
+		tabbedPane.setToolTipTextAt(0,"Send your files");
 		tabbedPane.setToolTipTextAt(1,"Generate a key and export it");
-		tabbedPane.setToolTipTextAt(2,"Calculate the signature SHA-3 of your favorite files");
-		tabbedPane.setToolTipTextAt(3,"Encrypt and decrypt your favorite files");
-		tabbedPane.setToolTipTextAt(4,"Receive your favorite files");
+		tabbedPane.setToolTipTextAt(2,"Calculate the signature SHA-3 of your files");
+		tabbedPane.setToolTipTextAt(3,"Encrypt and decrypt your files");
+		tabbedPane.setToolTipTextAt(4,"Receive your files");
 		tabbedPane.setToolTipTextAt(5,"Send and receive the public RSA keys");
 		
 		this.add(tabbedPane);

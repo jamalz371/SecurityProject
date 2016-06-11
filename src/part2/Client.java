@@ -14,16 +14,21 @@ public class Client {
     
     private Socket socket = null;
     private String host = null;        //"127.0.0.1";    // null
+    private int port = 4545;
     
     public void setIP(String hip){
     	host = hip;
+    }
+    
+    public void setPort(int valuePort){
+    	port = valuePort;
     }
     
     public void sendFile(String f) throws IOException {
 
     	String myFile = f;
     	// ajouter getText() ici pour avoir l'IP de host
-        socket = new Socket(host, 4455);
+        socket = new Socket(host, port);
 
          
         File file = new File(myFile);     //"C:\\Users\\JAMAL\\Desktop\\test.txt");
