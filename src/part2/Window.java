@@ -232,6 +232,23 @@ public class Window extends JFrame{
 		}
 	}
 	
+	class Sending implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			Server myServ = new Server();
+			String tmp = textPortReceive.getText();
+			int myPort = Integer.parseInt(tmp);
+			String fn = "C:\\Users\\JAMAL\\Desktop\\" + textNameReceive.getText();
+			myServ.setPort(myPort);
+			try {
+				myServ.receiveFile(fn);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
+	}
+	
 	public Key[] publicKeyRSAToSend = null;
 	public Key[] publicKeyRSAToReceive = null;
 	
@@ -521,8 +538,12 @@ public class Window extends JFrame{
 		decBoxAES.addActionListener(new decryptThisAES());
 		decBoxRSA.addActionListener(new decryptThisRSA());
 		decryptButton.addActionListener(new GenerateDecryptedFile());
-		buttonGenerateKeySix.addActionListener(new SendPublicKeyRSA());
-		buttonReceiveKeySix.addActionListener(new ReceivePublicKeyRSA());
+		buttonReady.addActionListener(new Sending());
+		
+		
+		
+		//buttonGenerateKeySix.addActionListener(new SendPublicKeyRSA());  // à supprimer
+		//buttonReceiveKeySix.addActionListener(new ReceivePublicKeyRSA()); // à supprimler
 		
 		tabbedPane.add("Send file",firstPan);
 		tabbedPane.add("Generate and export",secondPan);

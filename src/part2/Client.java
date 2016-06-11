@@ -8,20 +8,21 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 public class Client {
-    public static void main(String[] args) throws IOException {
-        new Client();
-    }
+    //public static void main(String[] args) throws IOException {
+     //   new Client();
+    //}
     
     private Socket socket = null;
-    private String host = "127.0.0.1";    // null
+    private String host = null;        //"127.0.0.1";    // null
     
-    public Client() throws IOException {
+    public void sendFile(String f) throws IOException {
 
-
+    	String myFile = f;
+    	// ajouter getText() ici pour avoir l'IP de host
         socket = new Socket(host, 4455);
 
-        // getText() ici ;
-        File file = new File("C:\\Users\\JAMAL\\Desktop\\test.txt");
+         
+        File file = new File(myFile);     //"C:\\Users\\JAMAL\\Desktop\\test.txt");
         // Get the size of the file
         //long length = file.length();
         byte[] bytes = new byte[16 * 1024];

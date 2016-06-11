@@ -20,7 +20,7 @@ import javax.crypto.Cipher;
 public class RSA_2048 {
 	
 	/**
-	 * generates RSA keys
+	 * Generates RSA keys
 	 * 
 	 * @return key list (key[0] = public key, key[1] = private key)
 	 */
@@ -47,6 +47,13 @@ public class RSA_2048 {
 		
 		return res;
 	}
+	
+	/**
+	 * Encrypts a plaintext by using the private key 
+	 * @param key is the private key to use
+	 * @param input is the plaintext to encrypt
+	 * @return cipher text (= plaintext encrypted with the private key)
+	 */
 	
 	public static byte[] encryptWithPrivate(byte[] key, byte[] input){
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
@@ -76,7 +83,7 @@ public class RSA_2048 {
 	 * 
 	 * @param pubKey the public key
 	 * @param input the bytes to encrypt
-	 * @return the rsa-2048 encryption of the input in a byte array
+	 * @return the RSA-2048 encryption of the input in a byte array
 	 */
 	public static byte[] encrypt(byte[] pKey, byte[] input){
 		
@@ -134,6 +141,12 @@ public class RSA_2048 {
 		
 	}
 	
+	/**
+	 * 
+	 * @param key
+	 * @param input
+	 * @return
+	 */
 	public static byte[] decryptWithPublic(byte[] key, byte[] input){
 		byte[] res = null;
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());

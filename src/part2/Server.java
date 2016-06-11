@@ -9,38 +9,46 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-    public static void main(String[] args) throws IOException {
-        new Server();
-    }
+    //public static void main(String[] args) throws IOException {
+     //   new Server();
+    //}
     
+	
+	private int port = 4455;
     private Socket socket = null;
     private InputStream in = null;
     private OutputStream out = null;
     
-    public Server() throws IOException{
+    public void setPort(int valuePort){
+    	port = valuePort;
+    }
+    
+    public void receiveFile(String rf) throws IOException{
     	ServerSocket serverSocket = null;
 
+    	String myReceiveFile = rf;
+    	
         try {
-            serverSocket = new ServerSocket(4455);
+            serverSocket = new ServerSocket(port);
         } catch (IOException ex) {
-            System.out.println("Can't setup server on this port number. ");
+            System.out.println("Can't setup server on this port number");
         }
 
         try {
             socket = serverSocket.accept();
         } catch (IOException ex) {
-            System.out.println("Can't accept client connection. ");
+            System.out.println("Can't accept client connection");
         }
 
         try {
             in = socket.getInputStream();
         } catch (IOException ex) {
-            System.out.println("Can't get socket input stream. ");
+            System.out.println("Can't get socket input stream");
         }
 
         try {
-        	// ajouter le getText() et le a.sperator ici pour récupérer le nom du fichier 
-            out = new FileOutputStream("C:\\Users\\JAMAL\\Desktop\\RES.txt");
+        	
+            out = new FileOutputStream(myReceiveFile);
         } catch (FileNotFoundException ex) {
             System.out.println("File not found. ");
         }
@@ -58,4 +66,5 @@ public class Server {
         socket.close();
         serverSocket.close();
     }
+    
 }

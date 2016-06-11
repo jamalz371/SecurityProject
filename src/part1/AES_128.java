@@ -99,6 +99,12 @@ public class AES_128 {
 		return res;
     }
 	
+	/**
+	 * transforms the representation in bytes format to hexadecimal format
+	 * @param bytes
+	 * @return the representation in hexadecimal format
+	 */
+	
 	private static String bytesToHexRepresentation(byte[] bytes) {
 	    StringBuilder sb = new StringBuilder();
 	    for (byte b : bytes) {
@@ -107,6 +113,10 @@ public class AES_128 {
 	    return sb.toString();
 	}
 	
+	/**
+	 * Generates a key in hexadecimal format
+	 * @return the key in hexadecimal format
+	 */
 	public static String generateKeyHex(){
 		SecretKey myKey = AES_128.getKey();
 		byte[] encodedBytes = myKey.getEncoded();
