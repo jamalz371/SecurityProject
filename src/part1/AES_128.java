@@ -100,7 +100,7 @@ public class AES_128 {
     }
 	
 	/**
-	 * transforms the representation in bytes format to hexadecimal format
+	 * Transforms the representation in bytes format to hexadecimal format
 	 * @param bytes
 	 * @return the representation in hexadecimal format
 	 */

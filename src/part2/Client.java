@@ -15,6 +15,10 @@ public class Client {
     private Socket socket = null;
     private String host = null;        //"127.0.0.1";    // null
     
+    public void setIP(String hip){
+    	host = hip;
+    }
+    
     public void sendFile(String f) throws IOException {
 
     	String myFile = f;

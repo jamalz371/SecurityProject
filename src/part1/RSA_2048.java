@@ -142,10 +142,10 @@ public class RSA_2048 {
 	}
 	
 	/**
-	 * 
-	 * @param key
-	 * @param input
-	 * @return
+	 * Decrypts the ciphertext by using the public key
+	 * @param key is the public key
+	 * @param input is the ciphertext to decrypt
+	 * @return the plaintext (= ciphertext decrypted with the public key)
 	 */
 	public static byte[] decryptWithPublic(byte[] key, byte[] input){
 		byte[] res = null;
@@ -170,6 +170,11 @@ public class RSA_2048 {
 		
 	}
 	
+	/**
+	 * Converts the bytes format to hexadecimal format
+	 * @param bytes is byte format input
+	 * @return the representation in hexadecimal
+	 */
 	public static String bytesToHexRepresentation(byte[] bytes) {
 	    StringBuilder sb = new StringBuilder();
 	    for (byte b : bytes) {
@@ -178,7 +183,10 @@ public class RSA_2048 {
 	    return sb.toString();
 	}
 	
-
+	/**
+	 * Generates the key in hexadecimal format
+	 * @return the key in hexadecimal format
+	 */
 	@SuppressWarnings("null")
 	public static String[] generateKeyHex(){
 		Key mykey[] = new Key[2];
