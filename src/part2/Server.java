@@ -8,6 +8,12 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * 
+ * @author Ben Azouze Jamal
+ *
+ */
+
 public class Server {
    
 	private int port = 4455;
@@ -15,9 +21,20 @@ public class Server {
     private InputStream in = null;
     private OutputStream out = null;
     
+    /**
+     * Set the value of the protocol
+     * @param valuePort is the value of the protocol
+     */
+    
     public void setPort(int valuePort){
     	port = valuePort;
     }
+    
+    /**
+     * Receives the file 
+     * @param rf is the name of the file to receive
+     * @throws IOException
+     */
     
     public void receiveFile(String rf) throws IOException{
     	ServerSocket serverSocket = null;

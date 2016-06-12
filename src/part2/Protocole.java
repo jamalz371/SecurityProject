@@ -3,22 +3,24 @@ package part2;
 import part1.AES_128;
 import part1.RSA_2048;
 
-public class Protocole {
+/**
+ * 
+ * @author Ben Azouze Jamal
+ *
+ */
 
-	public static void main(String[] args){
-		//Protocole p = new Protocole();
-		//System.out.println(p.step1());
-	}
-	
-	/*public boolean sendKeyPublic(){
-		
-		publicKeySent = true;
-		return publicKeySent;
-	}*/
+public class Protocole {
 	
 	private static boolean checkStep1 = false;
 	private static boolean checkStep2 = false;
 	private static boolean checkStep3 = false;
+	
+	/**
+	 * Step 1 of the protocol
+	 * @param keyToEncrypt is the session key
+	 * @param keyRSAPublicBOB is the public key of Bob
+	 * @return the bytes to send
+	 */
 	
 	public static byte[] step1(byte[] keyToEncrypt, byte[] keyRSAPublicBOB){
 		byte[] sessionKey = keyToEncrypt;
@@ -28,6 +30,13 @@ public class Protocole {
 		return resStep1;
 	}
 	
+	/**
+	 * Step 2 of the protocol
+	 * @param sessKey is the session key
+	 * @param fileToEncrypt is the name of the file to encrypt
+	 * @return the bytes to send
+	 */
+	
 	public static byte[] step2(byte[] sessKey, byte[] fileToEncrypt){
 		byte[] currentKey = sessKey;
 		byte[] contentFile = fileToEncrypt;
@@ -36,6 +45,13 @@ public class Protocole {
 		return resStep2;
 	}
 	
+	/**
+	 * Step 3 of the protocol
+	 * @param privateKeyAlice is the private key of Alice
+	 * @param sha3Content is the SHA-3 hash result
+	 * @return the bytes to send
+	 */
+	
 	public static byte[] step3(byte[] privateKeyAlice, byte[] sha3Content){
 		byte[] keyAlice = privateKeyAlice;
 		byte[] signToEncrypt = sha3Content;
@@ -43,6 +59,7 @@ public class Protocole {
 		setCheckStep3();
 		return resStep3;
 	}
+	
 	
 	public static void setCheckStep1(){
 		checkStep1 = true;

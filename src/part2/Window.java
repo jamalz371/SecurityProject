@@ -38,6 +38,11 @@ import part1.AES_128;
 import part1.RSA_2048;
 import part1.SHA_3;
 
+/**
+ * 
+ * @author Ben Azouze Jamal
+ *
+ */
 
 public class Window extends JFrame{
 
@@ -337,6 +342,12 @@ public class Window extends JFrame{
 		}
 	}
 	
+	/**
+	 * Reads a file 
+	 * @param nf is the name of the file
+	 * @return the bytes of the file
+	 */
+	
 	public byte[] readFile(String nf){
 		File file = new File(nf);
 		FileInputStream fin = null;
@@ -366,6 +377,12 @@ public class Window extends JFrame{
 		return null;
 	}
 	
+	/**
+	 * Writes a file
+	 * @param contentToWrite is the bytes content to write in the file 
+	 * @param path is the path where the file has to be written
+	 */
+	
 	public static void writeFile(byte[] contentToWrite,String path){
 		byte[] content = contentToWrite;
 		String pathNameFile = path;
@@ -384,6 +401,11 @@ public class Window extends JFrame{
 		}
 	}
 	
+	/**
+	 * Exports the key AES
+	 * @throws IOException
+	 */
+	
 	public void exportAES_128() throws IOException{ 
 		File filer = new File("");
 		String path = filer.getAbsolutePath();
@@ -399,6 +421,11 @@ public class Window extends JFrame{
 		fos.write(encodedKey.getBytes());
 	    fos.close();
 	}
+	
+	/**
+	 * Exports the keys RSA
+	 * @throws IOException
+	 */
 	
 	public void exportRSA_2048() throws IOException{ 
 		File filer = new File("");

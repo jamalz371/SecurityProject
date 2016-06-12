@@ -7,23 +7,39 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+/**
+ * 
+ * @author Ben Azouze Jamal
+ *
+ */
+
 public class Client {
-    //public static void main(String[] args) throws IOException {
-     //   new Client();
-    //}
     
     private Socket socket = null;
-    private String host = null;        //"127.0.0.1";    // null
+    private String host = null;        
     private int port = 4545;
     
+    /**
+     * Set the ip address of the host
+     * @param hip is the value of the ip address of the host
+     */
     public void setIP(String hip){
     	host = hip;
     }
     
+    /**
+     * Set the port 
+     * @param valuePort is the value of the port
+     */
     public void setPort(int valuePort){
     	port = valuePort;
     }
     
+    /**
+     * Sends the file
+     * @param f is the name of the file
+     * @throws IOException
+     */
     public void sendFile(String f) throws IOException {
 
     	String myFile = f;

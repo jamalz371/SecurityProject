@@ -3,6 +3,12 @@ package part1;
 import java.security.Key;
 import javax.crypto.SecretKey;
 
+/**
+ * 
+ * @author Ben Azouze Jamal
+ *
+ */
+
 public class Main {
 	
 	
