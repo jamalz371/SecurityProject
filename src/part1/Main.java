@@ -23,7 +23,6 @@ public class Main {
 
 	}
 	
-	
 	public static void RSA_2048_Exemple(byte[] in) {
 		
 		Key[] keys = RSA_2048.getKeys();
@@ -39,7 +38,6 @@ public class Main {
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public static void AES_128_Exemple(byte[] in){
@@ -56,7 +54,6 @@ public class Main {
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public static byte[] SHA_3_Exemple(){
