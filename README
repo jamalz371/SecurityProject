@@ -8,7 +8,7 @@ sécurisée entre deux ordinateurs.
 
 Le système sera composé de 2 parties :
 
-1) Une partie regroupant des fonctions de bases telles que la génération de clés RSA-2048, la génération de clés AES-128, le chiffrement et le déchiffrement avec l’algorithme RSA-2048, le chiffrement et le déchiffrement avec l’algorithme AES-128 et la création d’une empreinte d’un message avec l’algorithme SHA3.
+1) Une partie regroupant des fonctions de bases telles que la génération de clés RSA-2048, la génération de clés AES-128, le chiffrement et le déchiffrement avec l’algorithme RSA-2048, le chiffrement et le déchiffrement avec l’algorithme AES-128 et la création d’une empreinte d’un message avec l’algorithme SHA-3.
 
 2) Une partie graphique permettant l’échange de fichiers à travers un protocole
 sécurisé.
