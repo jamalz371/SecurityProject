@@ -242,7 +242,10 @@ public class Window extends JFrame{
 			Server myServ = new Server();
 			String tmp = textPortReceive.getText();
 			int myPort = Integer.parseInt(tmp);
-			String fn = "C:\\Users\\JAMAL\\Desktop\\" + textNameReceive.getText();
+			File filer = new File("");
+			String path = filer.getAbsolutePath();
+			String sep = File.separator;
+			String fn = path + sep + textNameReceive.getText();
 			myServ.setPort(myPort);
 			try {
 				myServ.receiveFile(fn);
@@ -250,7 +253,6 @@ public class Window extends JFrame{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
 		}
 	}
 	
