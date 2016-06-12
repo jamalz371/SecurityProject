@@ -1,0 +1,25 @@
+
+Echange de fichiers de manière sécurisée
+
+Description :
+
+Le but du projet est l’implémentation d’un système d’échange de fichiers de manière
+sécurisée entre deux ordinateurs.
+
+Le système sera composé de 2 parties :
+
+1) Une partie regroupant des fonctions de bases telles que la génération de clés RSA-2048, la génération de clés AES-128, le chiffrement et le déchiffrement avec l’algorithme RSA-2048, le chiffrement et le déchiffrement avec l’algorithme AES-128 et la création d’une empreinte d’un message avec l’algorithme SHA3.
+
+2) Une partie graphique permettant l’échange de fichiers à travers un protocole
+sécurisé.
+
+Le protocole permettant l’échange de fichiers (de manière sécurisé) se résume en trois
+étapes :
+
+1) Soit une personne (nommée Alice ) voulant envoyer un fichier (symbolisé par FILE) à une personne (nommée Bob ). Pour cela, Alice crée une clé aléatoire à usage unique de 128 bits (appelée clé de session, symbolisée par SESSION_KEY). Plus formellement, Alice envoie le message E_K_AB=RSA_2048_{clé publique de Bob}(SESSION_KEY) à Bob où RSA_2048_{K}(M) représente le chiffrement du message M avec la clé publique K et l’algorithme RSA-2048.
+
+2) La deuxième étape est le chiffrement du fichier FILE, que Alice aimerait envoyer à Bob. Ce message chiffré, qui sera aussi envoyé à Bob, est nommé E dans la suite. Plus formellement, Alice envoie à Bob le deuxième message E=AES_128_{SESSION_KEY}(FILE) où AES_128_{K}(M) représente le chiffrement du message M avec la clé secrète K et l’algorithme AES-128.
+
+3) Enfin, l’empreinte de la concaténation du message E_K_AB et du fichier FILE sera signée avec la clé secrète de Alice par Alice pour être envoyé à Bob , i.e. Alice envoie à Bob sign=RSAsign2048_{clé privée d’Alice}(SHA3(FILE)) où RSAsign2048_{K}(M) représente la signature du message M avec la clé secrète K et l’algorithme RSA-2048 et SHA3(M) représente l’empreinte du message M avec l’algorithme de hashage SHA3.
+
+
