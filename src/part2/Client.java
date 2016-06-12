@@ -27,13 +27,10 @@ public class Client {
     public void sendFile(String f) throws IOException {
 
     	String myFile = f;
-    	// ajouter getText() ici pour avoir l'IP de host
         socket = new Socket(host, port);
 
          
-        File file = new File(myFile);     //"C:\\Users\\JAMAL\\Desktop\\test.txt");
-        // Get the size of the file
-        //long length = file.length();
+        File file = new File(myFile);     
         byte[] bytes = new byte[16 * 1024];
         InputStream in = new FileInputStream(file);
         OutputStream out = socket.getOutputStream();

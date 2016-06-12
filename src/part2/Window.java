@@ -293,7 +293,6 @@ public class Window extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			Socket socket = null;
 			InputStream in = null;
-			//OutputStream out = null;
 			ServerSocket serverSocket = null;
 		    String portNumber = textPortSix.getText();
 		    int curPort = Integer.parseInt(portNumber);
@@ -346,7 +345,6 @@ public class Window extends JFrame{
 			byte fileContent[] = new byte[(int)file.length()];
 			fin.read(fileContent);
 			String s = new String(fileContent);
-			//System.out.println("File content: " + s);
 			return s.getBytes();
 		}
 		catch (FileNotFoundException e) {
@@ -387,11 +385,11 @@ public class Window extends JFrame{
 	}
 	
 	public void exportAES_128() throws IOException{ 
-		//File filer = new File("");
-		//String path = filer.getAbsolutePath();
-		//String sep = a.separator;
-	    String pathFull = textNameFile.getText();
-	    String emplacement = "C:\\Users\\JAMAL\\Desktop\\" + pathFull;
+		File filer = new File("");
+		String path = filer.getAbsolutePath();
+		String sep = File.separator;
+		String pathFull = textNameFile.getText();
+	    String emplacement = path + sep + pathFull;
 		FileOutputStream fos = new FileOutputStream(new File(emplacement));
 	    String resultKey = AES_128.generateKeyHex();
 	    fos.write("Key AES-128 in Hexadecimal format : \r\n\r\n".getBytes());
@@ -403,11 +401,11 @@ public class Window extends JFrame{
 	}
 	
 	public void exportRSA_2048() throws IOException{ 
-		//File filer = new File("");
-		//String path = filer.getAbsolutePath();
-		//String sep = a.separator;
+		File filer = new File("");
+		String path = filer.getAbsolutePath();
+		String sep = File.separator;
 		String pathFull = textNameFile.getText();
-	    String emplacement = "C:\\Users\\JAMAL\\Desktop\\" + pathFull;
+	    String emplacement = path + sep + pathFull;
 		FileOutputStream fos = new FileOutputStream(new File(emplacement));
 		Key k[] = RSA_2048.getKeys();
 		fos.write(k[0].toString().getBytes());
@@ -426,21 +424,6 @@ public class Window extends JFrame{
 	    fos.close();
 	}
 	
-	
-	 // Fonction à supprimer
-	 /*public byte[] encryptFileAES_128(byte[] keyToUse, String pathToFile) throws IOException{ 
-		 String myPath = pathToFile;
-		//SecretKey keyK = AES_128.getKey(); // à changer par 	SessionKey.setKeyAES(); puis SecretKey curKey = SessionKey.getKeyAES();
-		byte[] contentFile = readFile(myPath);
-		byte[] encryptedContent = AES_128.encrypt(keyToUse,contentFile);
-		return encryptedContent;
-	}*/
-	 
-	 /*public byte[] decryptFileAES_128(String pathToFile) throws IOException{
-		String myPath = pathToFile;
-		
-	 }*/
-
 	
 	public void initSessionKeys(){
 		SessionKey.setKeyAES();
@@ -559,23 +542,18 @@ public class Window extends JFrame{
 		buttonReady.addActionListener(new Receiving());
 		buttonSend.addActionListener(new Sending());
 		
-		
-		
-		//buttonGenerateKeySix.addActionListener(new SendPublicKeyRSA());  // à supprimer
-		//buttonReceiveKeySix.addActionListener(new ReceivePublicKeyRSA()); // à supprimler
-		
 		tabbedPane.add("Send file",firstPan);
 		tabbedPane.add("Generate and export",secondPan);
 		tabbedPane.add("Calculate signature SHA-3",thirdPan);
 		tabbedPane.add("Encrypt and decrypt files",fourthPan);
 		tabbedPane.add("Receive file",fifthPan);
-		tabbedPane.add("Exchange the keys",sixthPan);
+		//tabbedPane.add("Exchange the keys",sixthPan);
 		tabbedPane.setToolTipTextAt(0,"Send your files");
 		tabbedPane.setToolTipTextAt(1,"Generate a key and export it");
 		tabbedPane.setToolTipTextAt(2,"Calculate the signature SHA-3 of your files");
 		tabbedPane.setToolTipTextAt(3,"Encrypt and decrypt your files");
 		tabbedPane.setToolTipTextAt(4,"Receive your files");
-		tabbedPane.setToolTipTextAt(5,"Send and receive the public RSA keys");
+		//tabbedPane.setToolTipTextAt(5,"Send and receive the public RSA keys");
 		
 		this.add(tabbedPane);
 		this.setIconImage(new ImageIcon("src/image/images_secure_transfer_files.jpg").getImage());

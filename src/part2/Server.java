@@ -9,11 +9,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-    //public static void main(String[] args) throws IOException {
-     //   new Server();
-    //}
-    
-	
+   
 	private int port = 4455;
     private Socket socket = null;
     private InputStream in = null;
@@ -57,7 +53,6 @@ public class Server {
 
         int count;
         while ((count = in.read(bytes)) > 0) {
-        	// ajouter le déchiffrement ici 
             out.write(bytes, 0, count);
         }
 

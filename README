@@ -20,6 +20,6 @@ Le protocole permettant l’échange de fichiers (de manière sécurisé) se ré
 
 2) La deuxième étape est le chiffrement du fichier FILE, que Alice aimerait envoyer à Bob. Ce message chiffré, qui sera aussi envoyé à Bob, est nommé E dans la suite. Plus formellement, Alice envoie à Bob le deuxième message E=AES_128_{SESSION_KEY}(FILE) où AES_128_{K}(M) représente le chiffrement du message M avec la clé secrète K et l’algorithme AES-128.
 
-3) Enfin, l’empreinte de la concaténation du message E_K_AB et du fichier FILE sera signée avec la clé secrète de Alice par Alice pour être envoyé à Bob , i.e. Alice envoie à Bob sign=RSAsign2048_{clé privée d’Alice}(SHA3(FILE)) où RSAsign2048_{K}(M) représente la signature du message M avec la clé secrète K et l’algorithme RSA-2048 et SHA3(M) représente l’empreinte du message M avec l’algorithme de hashage SHA3.
+3) Enfin, l’empreinte de la concaténation du message E_K_AB et du fichier FILE sera signée avec la clé secrète de Alice par Alice pour être envoyé à Bob , i.e. Alice envoie à Bob sign=RSAsign2048_{clé privée d’Alice}(SHA-3(FILE)) où RSAsign2048_{K}(M) représente la signature du message M avec la clé secrète K et l’algorithme RSA-2048 et SHA-3(M) représente l’empreinte du message M avec l’algorithme de hashage SHA-3.
 
 
